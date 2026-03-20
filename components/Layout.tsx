@@ -47,7 +47,7 @@ const Layout: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
           {/* Logo Brand */}
-          <NavLink to="/" className="flex flex-col mr-8 group shrink-0">
+          <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="flex flex-col mr-8 group shrink-0">
             <span className="text-2xl sm:text-3xl font-display font-bold text-brand-900 tracking-wide leading-none">
               Schwesterherz
             </span>
@@ -62,6 +62,7 @@ const Layout: React.FC = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
+                end={item.path === '/'}
                 className={({ isActive }) =>
                   `text-xs uppercase tracking-wider font-bold transition-colors duration-200 ${
                     isActive ? 'text-brand-900 border-b-2 border-brand-400' : 'text-stone-600 hover:text-brand-900'
@@ -107,6 +108,8 @@ const Layout: React.FC = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
+                end={item.path === '/'}
+                onClick={() => setIsMenuOpen(false)}
                 className={({ isActive }) =>
                   `py-3 px-4 rounded-lg transition-colors text-lg ${
                     isActive ? 'bg-brand-50 text-brand-900 font-bold' : 'text-stone-600 hover:bg-stone-50'
