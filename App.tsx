@@ -8,6 +8,8 @@ import Prices from './pages/Prices';
 import Gallery from './pages/Gallery';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
+import Datenschutz from './pages/Datenschutz';
+import Impressum from './pages/Impressum';
 
 const App: React.FC = () => {
   return (
@@ -21,6 +23,8 @@ const App: React.FC = () => {
           <Route path="galerie" element={<Gallery />} />
           <Route path="faq" element={<FAQ />} />
           <Route path="kontakt" element={<Contact />} />
+          <Route path="datenschutz" element={<Datenschutz />} />
+          <Route path="impressum" element={<Impressum />} />
         </Route>
       </Routes>
     </HashRouter>

@@ -85,7 +85,7 @@ const Home: React.FC = () => {
             >
               Willkommen bei Schwesterherz
             </motion.span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] mb-4 sm:mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-display font-bold leading-[1.1] mb-4 sm:mb-6">
               „Entdecken Sie neue Dimensionen der Entspannung"
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-brand-100 mb-6 sm:mb-8 leading-relaxed max-w-2xl">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Link, Outlet, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MessageCircle, MapPin, Mail, Instagram } from 'lucide-react';
 import { NAV_ITEMS, CONTACT_INFO, BOOKING_URL } from '../constants';
 
@@ -188,8 +188,8 @@ const Layout: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-brand-900 text-center text-xs text-brand-500/60 flex flex-col sm:flex-row justify-between items-center gap-4">
           <span>© {new Date().getFullYear()} Schwesterherz. Alle Rechte vorbehalten.</span>
           <div className="flex gap-6">
-             <a href="#" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Impressum</a>
-             <a href="#" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Datenschutz</a>
+             <Link to="/impressum" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Impressum</Link>
+             <Link to="/datenschutz" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Datenschutz</Link>
           </div>
         </div>
       </footer>
