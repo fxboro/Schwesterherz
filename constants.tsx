@@ -22,7 +22,6 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Über uns", path: "/ueber-uns" },
   { label: "Leistungen", path: "/leistungen" },
   { label: "Pakete", path: "/preise" },
-  { label: "Galerie", path: "/galerie" },
   { label: "FAQ", path: "/faq" },
   { label: "Kontakt", path: "/kontakt" },
 ];
