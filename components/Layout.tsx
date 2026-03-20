@@ -149,7 +149,7 @@ const Layout: React.FC = () => {
               Wir verbinden medizinische Kompetenz mit purer Entspannung.
             </p>
             <div className="flex gap-4">
-               <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-full flex items-center justify-center border border-brand-800 text-brand-400 hover:text-brand-950 hover:bg-brand-300 hover:border-brand-300 hover:scale-110 transition-all duration-300 group">
+               <a href="https://www.instagram.com/schwesterherzfusspflege?igsh=MTI1MjA5N25iMHVlbg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full flex items-center justify-center border border-brand-800 text-brand-400 hover:text-brand-950 hover:bg-brand-300 hover:border-brand-300 hover:scale-110 transition-all duration-300 group">
                  <Instagram size={20} className="group-hover:scale-110 transition-transform" />
                </a>
             </div>
