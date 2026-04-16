@@ -141,7 +141,7 @@ const Layout: React.FC = () => {
 
       {/* Footer */}
       <footer className="bg-brand-950 text-brand-100 py-12 border-t border-brand-900">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div>
             <div className="mb-6">
               <h3 className="text-2xl font-display font-bold text-brand-300 leading-tight">Schwesterherz</h3>
@@ -187,10 +187,50 @@ const Layout: React.FC = () => {
               ))}
             </ul>
           </div>
+
+          <div>
+            <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <Instagram size={20} className="text-brand-400" /> Instagram
+            </h4>
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                '/images/Foot_care_01.jpg',
+                '/images/Spa_01.jpg',
+                '/images/Head_massage_01.jpg',
+                '/images/Head_massage_bed_01.jpg',
+                '/images/Foot_care_02.jpg',
+                '/images/nenette_image_01.jpg'
+              ].map((src, i) => (
+                <a 
+                  key={i} 
+                  href="https://www.instagram.com/schwesterherzfusspflege?igsh=MTI1MjA5N25iMHVlbg==" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block aspect-square overflow-hidden rounded-md hover:opacity-80 transition-opacity bg-brand-900"
+                >
+                  <img 
+                    src={src} 
+                    alt={`Instagram Post ${i + 1}`} 
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </a>
+              ))}
+            </div>
+            <a 
+              href="https://www.instagram.com/schwesterherzfusspflege?igsh=MTI1MjA5N25iMHVlbg==" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block mt-4 text-sm text-brand-400 hover:text-white transition-colors"
+            >
+              @schwesterherzfusspflege
+            </a>
+          </div>
         </div>
         <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-brand-900 text-center text-xs text-brand-500/60 flex flex-col sm:flex-row justify-between items-center gap-4">
           <span>© {new Date().getFullYear()} Schwesterherz. Alle Rechte vorbehalten.</span>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+             <Link to="/kunden-erfassungsbogen" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Kunden-Erfassungsbogen</Link>
              <Link to="/impressum" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Impressum</Link>
              <Link to="/datenschutz" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Datenschutz</Link>
           </div>

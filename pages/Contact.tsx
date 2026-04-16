@@ -236,15 +236,19 @@ const Contact: React.FC = () => {
           </div>
         </div>
 
-        {/* Maps Embed Placeholder */}
-        <div className="mt-10 md:mt-12 rounded-3xl overflow-hidden h-[400px] shadow-lg border border-brand-100 relative bg-stone-100 flex items-center justify-center group">
-          <div className="text-center p-6">
-            <MapPin size={48} className="mx-auto text-brand-300 mb-4" />
-            <p className="text-stone-500 font-medium">Google Maps Karte wird geladen...</p>
-            <p className="text-stone-400 text-sm mt-2">(Placeholder: Hier würde die echte Google Maps Embed-API eingebunden)</p>
-          </div>
-          {/* This is a static visual representation since we don't have a real API key for Maps in this demo context */}
-          <div className="absolute inset-0 bg-brand-900 opacity-5 pointer-events-none"></div>
+        {/* Google Maps Embed */}
+        <div className="mt-10 md:mt-12 rounded-3xl overflow-hidden h-[400px] shadow-lg border border-brand-100 relative bg-stone-100">
+          <iframe 
+            src={`https://maps.google.com/maps?q=${encodeURIComponent(CONTACT_INFO.address)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+            width="100%" 
+            height="100%" 
+            style={{ border: 0 }} 
+            allowFullScreen={false} 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Google Maps Standort"
+            className="absolute inset-0 w-full h-full"
+          ></iframe>
         </div>
       </Section>
     </>
