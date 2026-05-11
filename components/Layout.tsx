@@ -194,12 +194,12 @@ const Layout: React.FC = () => {
             </h4>
             <div className="grid grid-cols-3 gap-2">
               {[
-                '/images/Foot_care_01.jpg',
-                '/images/Spa_01.jpg',
-                '/images/Head_massage_01.jpg',
-                '/images/Head_massage_bed_01.jpg',
-                '/images/Foot_care_02.jpg',
-                '/images/nenette_image_01.jpg'
+                '/images/Foot_care_01.png',
+                '/images/Spa_01.png',
+                '/images/Head_massage_01.png',
+                '/images/Head_massage_bed_01.png',
+                '/images/Foot_care_02.png',
+                '/images/nenette_image_01.png'
               ].map((src, i) => (
                 <a 
                   key={i} 

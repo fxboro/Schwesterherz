@@ -65,7 +65,7 @@ const About: React.FC = () => {
             className="relative"
           >
             <img 
-              src="/images/Foot_care_02.jpg" 
+              src="/images/Foot_care_02.png" 
               alt="Treatment Room" 
               className="rounded-2xl shadow-xl w-full max-w-md mx-auto md:ml-auto object-cover h-[500px]"
             />

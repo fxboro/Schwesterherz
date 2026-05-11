@@ -8,15 +8,15 @@ import { SERVICES, TESTIMONIALS, BOOKING_URL } from '../constants';
 
 const HERO_SLIDES = [
   {
-    image: "/images/Foot_care_03.jpg",
+    image: "/images/Foot_care_03.png",
     alt: "Entspannende Spa Atmosphäre"
   },
   {
-    image: "/images/Spa_01.jpg",
+    image: "/images/Spa_01.png",
     alt: "Shazay Head Spa Ritual Utensilien"
   },
   {
-    image: "/images/Foot_care_02.jpg",
+    image: "/images/Foot_care_02.png",
     alt: "Wohlbefinden und Entspannung"
   }
 ];
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
           "@context": "https://schema.org",
           "@type": "HealthAndBeautyBusiness",
           "name": "Schwesterherz",
-          "image": "https://schwesterherz-solingen.de/images/Foot_care_03.jpg",
+          "image": "https://schwesterherz-solingen.de/images/Foot_care_03.png",
           "@id": "",
           "url": "https://schwesterherz-solingen.de",
           "telephone": "+49 1525 5892182",
@@ -145,7 +145,7 @@ const Home: React.FC = () => {
           <div className="relative mt-8 md:mt-0">
              <div className="absolute -inset-4 bg-brand-300 rounded-2xl rotate-3 -z-10"></div>
              <img 
-               src="/images/Head_massage_01.jpg" 
+               src="/images/Head_massage_01.png" 
                alt="Relaxed atmosphere" 
                className="rounded-2xl shadow-xl w-full object-cover" 
              />
@@ -194,7 +194,7 @@ const Home: React.FC = () => {
                  whileInView={{ opacity: 1, y: 0 }}
                  viewport={{ once: true, margin: "-50px" }}
                  transition={{ duration: 0.8, ease: "easeOut" }}
-                 src="/images/Head_massage_bed_01.jpg" 
+                 src="/images/Head_massage_bed_01.png" 
                  className="rounded-2xl shadow-lg mt-8 border-4 border-white w-full h-auto object-cover" 
                  alt="Head Spa Behandlung" 
                />
@@ -203,7 +203,7 @@ const Home: React.FC = () => {
                  whileInView={{ opacity: 1, y: 0 }}
                  viewport={{ once: true, margin: "-50px" }}
                  transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                 src="/images/Spa_01.jpg" 
+                 src="/images/Spa_01.png" 
                  className="rounded-2xl shadow-lg mb-8 border-4 border-white w-full h-auto object-cover" 
                  alt="Entspannende Atmosphäre" 
                />

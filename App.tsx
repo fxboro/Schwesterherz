@@ -9,6 +9,7 @@ import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 import Datenschutz from './pages/Datenschutz';
 import Impressum from './pages/Impressum';
+import Gallery from './pages/Gallery';
 import KundenErfassungsbogen from './pages/KundenErfassungsbogen';
 
 declare global {
@@ -52,6 +53,7 @@ const App: React.FC = () => {
           <Route path="kontakt" element={<Contact />} />
           <Route path="datenschutz" element={<Datenschutz />} />
           <Route path="impressum" element={<Impressum />} />
+          <Route path="galerie" element={<Gallery />} />
           <Route path="kunden-erfassungsbogen" element={<KundenErfassungsbogen />} />
         </Route>
       </Routes>

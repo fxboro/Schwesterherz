@@ -89,9 +89,9 @@ const Services: React.FC = () => {
               <div className={`relative h-64 sm:h-80 md:h-[500px] rounded-3xl overflow-hidden shadow-xl ${index % 2 !== 0 ? 'md:order-1' : ''}`}>
                  <img 
                    src={
-                     service.id === 'med-fuss' ? '/images/Foot_care_01.jpg' :
-                     service.id === 'wellness' ? '/images/Spa_01.jpg' :
-                     service.id === 'headspa' ? '/images/Head_massage_01.jpg' :
+                     service.id === 'med-fuss' ? '/images/Foot_care_01.png' :
+                     service.id === 'wellness' ? '/images/Spa_01.png' :
+                     service.id === 'headspa' ? '/images/Head_massage_01.png' :
                      `https://picsum.photos/seed/${service.id}/600/800`
                    }
                    alt={service.title} 
