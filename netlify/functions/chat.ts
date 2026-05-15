@@ -1,8 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const apiKey = process.env.GEMINI_API_KEY;
-const genAI = new GoogleGenerativeAI(apiKey || "");
-
 const SYSTEM_PROMPT = `
 Du bist der KI-Kundenservice-Assistent für "Schwesterherz - Deine Oase für Schönheit und Entspannung".
 Deine Aufgabe ist es, Fragen von Kunden zu beantworten, sie bei der Buchung zu unterstützen und bei Interesse an bestimmten Services ihre Kontaktdaten über das Kontaktformular (Lead Generation) einzuholen.
@@ -33,24 +30,41 @@ FAQ:
 - Absage: Bitte mindestens 24 Stunden vorher.
 `;
 
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+
 export const handler = async (event: any, context: any) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
+  // Handle CORS preflight
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 204, headers: CORS_HEADERS, body: "" };
   }
 
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, headers: CORS_HEADERS, body: "Method Not Allowed" };
+  }
+
+  // Read API key inside handler to ensure env vars are available at request time
+  const apiKey = process.env.GEMINI_API_KEY;
+
   if (!apiKey) {
+    console.error("GEMINI_API_KEY is not set. Available env keys:", Object.keys(process.env).filter(k => k.includes("GEMINI") || k.includes("API")));
     return {
       statusCode: 500,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: "Gemini API key is missing." }),
     };
   }
 
   try {
+    const genAI = new GoogleGenerativeAI(apiKey);
     const body = JSON.parse(event.body);
     const { history, message } = body; // history is an array of { role: 'user' | 'model', parts: [{ text: string }] }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.0-flash",
       systemInstruction: SYSTEM_PROMPT,
     });
 
@@ -63,12 +77,14 @@ export const handler = async (event: any, context: any) => {
 
     return {
       statusCode: 200,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ text: responseText }),
     };
   } catch (error) {
     console.error("Error with Gemini API:", error);
     return {
       statusCode: 500,
+      headers: CORS_HEADERS,
       body: JSON.stringify({ error: "Failed to generate response." }),
     };
   }
