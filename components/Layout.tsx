@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, Link, Outlet, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MessageCircle, MapPin, Mail, Instagram } from 'lucide-react';
 import { NAV_ITEMS, CONTACT_INFO, BOOKING_URL } from '../constants';
+import Chatbot from './Chatbot';
 
 const Layout: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -247,6 +248,9 @@ const Layout: React.FC = () => {
       >
         <MessageCircle size={32} />
       </a>
+
+      {/* AI Chatbot */}
+      <Chatbot />
     </div>
   );
 };
