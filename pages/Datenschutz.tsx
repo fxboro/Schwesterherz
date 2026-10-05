@@ -11,9 +11,9 @@ const Datenschutz: React.FC = () => {
       />
       
       {/* Header */}
-      <div className="bg-brand-950 text-brand-50 py-16 md:py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">Datenschutzerklärung</h1>
+      <div className="bg-brand-50 py-10 md:py-14">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h1 className="text-4xl font-display font-bold text-brand-900 mb-4">Datenschutzerklärung</h1>
           <div className="h-1 w-20 bg-brand-300 mx-auto rounded-full"></div>
         </div>
       </div>

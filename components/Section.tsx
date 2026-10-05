@@ -15,7 +15,7 @@ const Section: React.FC<SectionProps> = ({ children, className = '', bg = 'white
   };
 
   return (
-    <section id={id} className={`py-8 md:py-12 ${bgColors[bg]} ${className}`}>
+    <section id={id} className={`py-16 md:py-24 ${bgColors[bg]} ${className}`}>
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {children}
       </div>

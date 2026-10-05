@@ -57,6 +57,7 @@ const PriceCard: React.FC<{ category: PriceCategory }> = ({ category }) => {
         {hasExpandableDetails && (
           <button 
             onClick={() => setIsExpanded(!isExpanded)}
+            aria-expanded={isExpanded}
             className="mt-auto text-brand-600 font-medium text-sm hover:text-brand-700 self-start flex items-center gap-1 transition-colors"
           >
             {isExpanded ? (
@@ -73,35 +74,42 @@ const PriceCard: React.FC<{ category: PriceCategory }> = ({ category }) => {
 
 const Prices: React.FC = () => {
   return (
-    <Section>
+    <>
       <SEO 
         title="Pakete & Preise" 
         description="Übersicht unserer Pflegepakete und Preise für medizinische Fußpflege, Wellness-Behandlungen und das Shazay Head Spa Ritual."
       />
-      <div className="text-center mb-8 md:mb-10">
-        <h1 className="text-4xl font-display font-bold text-brand-900">Pakete</h1>
+
+      {/* Page Header — consistent with other pages */}
+      <div className="bg-brand-50 py-10 md:py-14">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h1 className="text-4xl font-display font-bold text-brand-900 mb-4">Pakete</h1>
+          <p className="text-stone-600">Unsere Behandlungspakete im Überblick.</p>
+        </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-        {PRICES.map((category, idx) => (
-          <PriceCard key={idx} category={category} />
-        ))}
-      </div>
+      <Section>
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {PRICES.map((category, idx) => (
+            <PriceCard key={idx} category={category} />
+          ))}
+        </div>
 
-      <div className="mt-12 text-center">
-        <p className="text-stone-500 mb-6 max-w-2xl mx-auto text-sm">
-          Bitte informieren Sie uns bei der Terminvereinbarung über spezielle Anforderungen.
-        </p>
-        <a 
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-brand-900 hover:bg-brand-800 text-white px-8 py-3 rounded-full font-semibold transition-colors shadow-md"
-        >
-          Termin vereinbaren
-        </a>
-      </div>
-    </Section>
+        <div className="mt-16 text-center">
+          <p className="text-stone-500 mb-6 max-w-2xl mx-auto text-sm">
+            Bitte informieren Sie uns bei der Terminvereinbarung über spezielle Anforderungen.
+          </p>
+          <a 
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-brand-900 hover:bg-brand-800 text-white px-8 py-3 rounded-full font-semibold transition-colors shadow-md"
+          >
+            Termin vereinbaren
+          </a>
+        </div>
+      </Section>
+    </>
   );
 };
 

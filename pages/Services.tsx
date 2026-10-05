@@ -29,7 +29,7 @@ const Services: React.FC = () => {
               whileHover="hover"
               initial="rest"
               animate="rest"
-              className={`group grid md:grid-cols-2 gap-12 items-center ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+              className="group grid md:grid-cols-2 gap-12 items-center"
             >
               <div className={`${index % 2 !== 0 ? 'md:order-2' : ''}`}>
                 <div className="flex items-center gap-4 mb-6">
@@ -86,7 +86,7 @@ const Services: React.FC = () => {
                 </div>
               </div>
               
-              <div className={`relative h-64 sm:h-80 md:h-[500px] rounded-3xl overflow-hidden shadow-xl ${index % 2 !== 0 ? 'md:order-1' : ''}`}>
+              <div className={`relative h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-3xl overflow-hidden shadow-xl ${index % 2 !== 0 ? 'md:order-1' : ''}`}>
                  <img 
                    src={
                      service.id === 'med-fuss' ? '/images/Foot_care_01.png' :

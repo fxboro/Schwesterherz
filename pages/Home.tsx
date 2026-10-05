@@ -54,7 +54,7 @@ const Home: React.FC = () => {
         })}
       />
       {/* Hero Section */}
-      <div className="relative min-h-[500px] md:min-h-[600px] h-[100svh] md:h-[80vh] flex items-center overflow-hidden">
+      <div className="relative min-h-[500px] md:min-h-[600px] h-[85svh] md:h-[80vh] flex items-center overflow-hidden">
         {/* Background Slider */}
         {HERO_SLIDES.map((slide, index) => (
           <div 
@@ -75,7 +75,7 @@ const Home: React.FC = () => {
         <div className="absolute inset-0 z-0 bg-gradient-to-b md:bg-gradient-to-r from-brand-950/90 via-brand-950/70 to-brand-950/30 pointer-events-none"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-white w-full py-12 md:py-16 mt-12 md:mt-0">
-          <div className="max-w-3xl animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <div className="max-w-3xl">
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -133,7 +133,7 @@ const Home: React.FC = () => {
               Manchmal braucht es mehr als nur Pflege
             </h2>
             <p className="text-stone-600 mb-4 leading-relaxed">
-              es braucht einen Ort, an dem Fachkompetenz auf echte Zuwendung trifft. In unserer Praxis verbinden wir medizinisch fundierte Fußpflege mit einem exklusiven Ambiente, das Ruhe und Vertrauen ausstrahlt. Jede Behandlung wird mit größter Sorgfalt, Präzision und Hingabe durchgeführt.
+              — es braucht einen Ort, an dem Fachkompetenz auf echte Zuwendung trifft. In unserer Praxis verbinden wir medizinisch fundierte Fußpflege mit einem exklusiven Ambiente, das Ruhe und Vertrauen ausstrahlt. Jede Behandlung wird mit größter Sorgfalt, Präzision und Hingabe durchgeführt.
             </p>
             <p className="text-stone-600 mb-8 leading-relaxed">
               Unser luxuriöses Shazay Head Spa Ritual schenkt Ihnen zusätzlich tiefe Entspannung und einen Moment, in dem Sie den Alltag vollkommen hinter sich lassen dürfen. Treten Sie ein, atmen Sie durch – und erleben Sie, wie sich Gesundheit und Wohlgefühl auf höchstem Niveau vereinen.
@@ -143,7 +143,7 @@ const Home: React.FC = () => {
             </Link>
           </div>
           <div className="relative mt-8 md:mt-0">
-             <div className="absolute -inset-4 bg-brand-300 rounded-2xl rotate-3 -z-10"></div>
+             <div className="absolute -inset-4 bg-brand-300 rounded-2xl rotate-3 -z-10 hidden md:block"></div>
              <img 
                src="/images/Head_massage_01.png" 
                alt="Relaxed atmosphere" 
@@ -155,7 +155,7 @@ const Home: React.FC = () => {
 
       {/* Services Highlight */}
       <Section bg="light">
-        <div className="text-center max-w-2xl mx-auto mb-8 md:mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
           <h2 className="text-2xl sm:text-3xl font-display font-bold text-brand-900 mb-4">Unsere Hauptleistungen</h2>
           <div className="h-1 w-20 bg-brand-300 mx-auto rounded-full"></div>
         </div>
@@ -184,7 +184,7 @@ const Home: React.FC = () => {
       {/* Feature: Shazay Head Spa Ritual */}
       <Section className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
-           <img src="https://picsum.photos/id/117/1600/900?grayscale" alt="Spa Background" className="w-full h-full object-cover opacity-10" />
+           <img src="/images/Head_massage_bed_01.png" alt="" className="w-full h-full object-cover opacity-5" aria-hidden="true" />
         </div>
         <div className="grid md:grid-cols-2 gap-12 items-center">
            <div className="order-2 md:order-1">
@@ -240,7 +240,7 @@ const Home: React.FC = () => {
 
       {/* Testimonials */}
       <Section bg="light">
-        <h2 className="text-center text-2xl sm:text-3xl font-display font-bold mb-8 md:mb-10 text-brand-900">Kundenstimmen</h2>
+        <h2 className="text-center text-2xl sm:text-3xl font-display font-bold mb-10 md:mb-14 text-brand-900">Kundenstimmen</h2>
         <div className="grid md:grid-cols-3 gap-8">
           {TESTIMONIALS.map((t, index) => (
             <motion.div 
@@ -250,7 +250,7 @@ const Home: React.FC = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="bg-white p-8 rounded-2xl shadow-sm relative border border-brand-50 hover:shadow-md transition-shadow"
+              className="bg-white p-8 rounded-2xl shadow-sm relative border border-brand-100 hover:shadow-md transition-shadow"
             >
               <div className="text-brand-300 flex gap-1 mb-4">
                 {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
@@ -263,7 +263,7 @@ const Home: React.FC = () => {
       </Section>
 
       {/* CTA Footer - Primary Brand Color Block */}
-      <section className="bg-brand-300 py-10 md:py-12 text-brand-950 text-center">
+      <section className="bg-brand-300 py-16 md:py-24 text-brand-950 text-center">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Gönnen Sie sich eine Auszeit.</h2>
           <p className="text-brand-900 text-xl mb-8 opacity-80">

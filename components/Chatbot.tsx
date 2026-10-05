@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Loader2, Sparkles } from 'lucide-react';
+import { X, Send, Loader2, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface ChatMessage {
@@ -96,104 +95,99 @@ const Chatbot: React.FC = () => {
 
   return (
     <>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed bottom-24 right-6 w-[350px] sm:w-[400px] h-[550px] max-h-[80vh] bg-white rounded-2xl shadow-2xl overflow-hidden z-50 flex flex-col border border-brand-100"
+      {/* Chat Window */}
+      <div
+        className={`fixed bottom-24 right-6 w-[350px] sm:w-[400px] max-w-[calc(100vw-2rem)] h-[550px] max-h-[80vh] bg-white rounded-2xl shadow-2xl overflow-hidden z-50 flex flex-col border border-brand-100 transition-all duration-200 origin-bottom-right ${
+          isOpen 
+            ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' 
+            : 'opacity-0 scale-95 translate-y-4 pointer-events-none'
+        }`}
+      >
+        {/* Header */}
+        <div className="bg-brand-900 text-white p-4 flex justify-between items-center shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-brand-800 flex items-center justify-center">
+              <Sparkles size={16} className="text-brand-200" />
+            </div>
+            <div>
+              <h3 className="font-bold text-brand-50">Schwesterherz KI</h3>
+              <p className="text-xs text-brand-200/80">Online & bereit zu helfen</p>
+            </div>
+          </div>
+          <button
+            onClick={() => setIsOpen(false)}
+            className="text-brand-200 hover:text-white transition-colors"
+            aria-label="Chat schließen"
           >
-            {/* Header */}
-            <div className="bg-brand-900 text-white p-4 flex justify-between items-center shrink-0">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-brand-800 flex items-center justify-center">
-                  <Sparkles size={16} className="text-brand-200" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-brand-50">Schwesterherz KI</h3>
-                  <p className="text-xs text-brand-200/80">Online & bereit zu helfen</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-brand-200 hover:text-white transition-colors"
-                aria-label="Chat schließen"
+            <X size={24} />
+          </button>
+        </div>
+
+        {/* Chat Area */}
+        <div className="flex-1 overflow-y-auto p-4 bg-stone-50 space-y-4">
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            >
+              <div
+                className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
+                  msg.role === 'user'
+                    ? 'bg-brand-900 text-white rounded-tr-sm'
+                    : 'bg-white text-stone-800 border border-brand-100 rounded-tl-sm'
+                }`}
               >
-                <X size={24} />
-              </button>
-            </div>
-
-            {/* Chat Area */}
-            <div className="flex-1 overflow-y-auto p-4 bg-stone-50 space-y-4">
-              {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm ${
-                      msg.role === 'user'
-                        ? 'bg-brand-900 text-white rounded-tr-sm'
-                        : 'bg-white text-stone-800 border border-brand-100 rounded-tl-sm'
-                    }`}
-                  >
-                    <p className="whitespace-pre-wrap leading-relaxed">
-                      {parseLinks(msg.parts[0].text)}
-                    </p>
-                  </div>
-                </div>
-              ))}
-              
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-white text-stone-800 border border-brand-100 rounded-tl-sm shadow-sm flex items-center gap-2">
-                    <Loader2 size={16} className="animate-spin text-brand-600" />
-                    <span className="text-sm text-stone-500">Tippt...</span>
-                  </div>
-                </div>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Input Area */}
-            <div className="p-4 bg-white border-t border-brand-100 shrink-0">
-              <form onSubmit={handleSubmit} className="flex items-center gap-2 relative">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Schreibe eine Nachricht..."
-                  className="flex-1 bg-stone-100 text-stone-800 rounded-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 pr-12"
-                  disabled={isLoading}
-                />
-                <button
-                  type="submit"
-                  disabled={isLoading || !input.trim()}
-                  className="absolute right-2 w-8 h-8 flex items-center justify-center bg-brand-900 text-white rounded-full hover:bg-brand-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <Send size={14} />
-                </button>
-              </form>
-              <div className="text-center mt-2">
-                <span className="text-[10px] text-stone-400">KI generierte Antworten können Fehler enthalten.</span>
+                <p className="whitespace-pre-wrap leading-relaxed">
+                  {parseLinks(msg.parts[0].text)}
+                </p>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+          
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="max-w-[85%] rounded-2xl px-4 py-3 bg-white text-stone-800 border border-brand-100 rounded-tl-sm shadow-sm flex items-center gap-2">
+                <Loader2 size={16} className="animate-spin text-brand-600" />
+                <span className="text-sm text-stone-500">Tippt...</span>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
 
-      {/* FAB to open chat */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        {/* Input Area */}
+        <div className="p-4 bg-white border-t border-brand-100 shrink-0">
+          <form onSubmit={handleSubmit} className="flex items-center gap-2 relative">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Schreibe eine Nachricht..."
+              className="flex-1 bg-stone-100 text-stone-800 rounded-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 pr-12"
+              disabled={isLoading}
+            />
+            <button
+              type="submit"
+              disabled={isLoading || !input.trim()}
+              className="absolute right-2 w-8 h-8 flex items-center justify-center bg-brand-900 text-white rounded-full hover:bg-brand-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <Send size={14} />
+            </button>
+          </form>
+          <div className="text-center mt-2">
+            <span className="text-[10px] text-stone-400">KI generierte Antworten können Fehler enthalten.</span>
+          </div>
+        </div>
+      </div>
+
+      {/* FAB to open chat — positioned above WhatsApp button */}
+      <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-20 bg-brand-900 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all z-40 flex items-center justify-center border-2 border-brand-800/50"
+        className="fixed bottom-20 right-6 bg-brand-900 text-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all z-40 flex items-center justify-center border-2 border-brand-800/50"
         aria-label="KI Chat öffnen"
       >
         {isOpen ? <X size={28} /> : <Sparkles size={28} />}
-      </motion.button>
+      </button>
     </>
   );
 };

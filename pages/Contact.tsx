@@ -79,7 +79,7 @@ const Contact: React.FC = () => {
         title="Kontakt & Termin" 
         description="Vereinbaren Sie einen Termin bei Schwesterherz in Neunkirchen-Seelscheid. Hier finden Sie unsere Adresse, Telefonnummer und Öffnungszeiten."
       />
-      <div className="bg-brand-50 py-8 md:py-10">
+      <div className="bg-brand-50 py-10 md:py-14">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-4xl font-display font-bold text-brand-900 mb-4">Kontakt & Termin</h1>
           <p className="text-stone-600">Wir freuen uns auf Ihren Besuch.</p>

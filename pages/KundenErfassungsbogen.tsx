@@ -120,7 +120,45 @@ const KundenErfassungsbogen: React.FC = () => {
       pdf.save(fileName);
       
       const subject = encodeURIComponent(`Kunden-Erfassungsbogen: ${formData.name}, ${formData.vorname}`);
-      const body = encodeURIComponent(`Guten Tag,\n\nanbei erhalten Sie meinen ausgefüllten Kunden-Erfassungsbogen als PDF-Datei.\n\n(Bitte vergessen Sie nicht, die soeben heruntergeladene PDF-Datei "${fileName}" an diese E-Mail anzuhängen!)\n\nMit freundlichen Grüßen\n${formData.vorname} ${formData.name}`);
+      const formDetails = `Guten Tag,
+
+anbei erhalten Sie meinen ausgefüllten Kunden-Erfassungsbogen.
+Hier finden Sie vorab alle erfassten Daten in der Übersicht:
+
+--- Persönliche Daten ---
+Name: ${formData.name}
+Vorname: ${formData.vorname}
+Strasse: ${formData.strasse} ${formData.hausnummer}
+PLZ/Wohnort: ${formData.plz} ${formData.wohnort}
+Geburtsdatum: ${formData.geburtsdatum}
+Telefon: ${formData.telefon}
+
+--- Medizinische Angaben ---
+Diabetiker: ${formData.diabetiker}
+Rheumatiker: ${formData.rheumatiker}
+Blutverdünnende Mittel: ${formData.blutverduennend}
+Durchblutungsstörungen: ${formData.durchblutung}
+Bluthochdruck: ${formData.bluthochdruck}
+Herzerkrankungen: ${formData.herzerkrankungen}
+Herzschrittmacher: ${formData.herzschrittmacher}
+Infektionen (HIV/Hepatitis): ${formData.infektionen}
+OP's an Füßen/Beinen: ${formData.ops}
+Krampfadern: ${formData.krampfadern}
+Thrombose(gefahr): ${formData.thrombose}
+Tetanus geimpft: ${formData.tetanus}
+Allergien: ${formData.allergien || 'Keine'}
+
+--- Bestätigung ---
+Einverständnis erteilt: Ja (Alle Fragen nach bestem Wissen beantwortet, Risiken bekannt, Behandlung zugestimmt)
+Ort, Datum: ${formData.ortDatum}
+Digitale Unterschrift: ${formData.unterschrift}
+
+(Hinweis an den Kunden: Bitte vergessen Sie nicht, die soeben heruntergeladene PDF-Datei "${fileName}" an diese E-Mail anzuhängen, falls Sie diese ebenfalls senden möchten!)
+
+Mit freundlichen Grüßen
+${formData.vorname} ${formData.name}`;
+
+      const body = encodeURIComponent(formDetails);
       
       window.location.href = `mailto:${CONTACT_INFO.email}?subject=${subject}&body=${body}`;
       
@@ -350,8 +388,9 @@ const KundenErfassungsbogen: React.FC = () => {
               <div>
                 <h3 className="text-green-900 font-bold text-lg mb-1">PDF erfolgreich erstellt!</h3>
                 <p className="text-green-800">
-                  Das PDF wurde heruntergeladen und Ihr E-Mail-Programm sollte sich geöffnet haben. 
-                  <strong> Bitte vergessen Sie nicht, die heruntergeladene PDF-Datei an die E-Mail anzuhängen</strong>, bevor Sie diese absenden.
+                  Das PDF wurde heruntergeladen und Ihr E-Mail-Programm sollte sich geöffnet haben. Alle erfassten Daten wurden automatisch in den Text der E-Mail eingefügt.
+                  <strong> Sie können die E-Mail nun direkt absenden </strong> 
+                  (optional können Sie zusätzlich die PDF-Datei anhängen).
                 </p>
               </div>
             </div>

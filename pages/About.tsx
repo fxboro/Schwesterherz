@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
-import { HeartHandshake, ShieldCheck, User } from 'lucide-react';
+import { HeartHandshake, ShieldCheck } from 'lucide-react';
 
 const About: React.FC = () => {
   return (
@@ -11,7 +11,7 @@ const About: React.FC = () => {
         title="Über Uns" 
         description="Lernen Sie Tresor und Nenette kennen – Ihre Expertinnen für medizinische Fußpflege und Wellness bei Schwesterherz in Neunkirchen-Seelscheid."
       />
-      <div className="bg-brand-50 py-8 md:py-10">
+      <div className="bg-brand-50 py-10 md:py-14">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -67,7 +67,7 @@ const About: React.FC = () => {
             <img 
               src="/images/Foot_care_02.png" 
               alt="Treatment Room" 
-              className="rounded-2xl shadow-xl w-full max-w-md mx-auto md:ml-auto object-cover h-[500px]"
+              className="rounded-2xl shadow-xl w-full max-w-md mx-auto md:ml-auto object-cover h-[350px] md:h-[500px]"
             />
           </motion.div>
         </div>
@@ -79,7 +79,7 @@ const About: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-8 md:mb-10"
+          className="text-center mb-10 md:mb-14"
         >
           <h2 className="text-3xl font-display font-bold text-brand-900">Unser Team</h2>
           <div className="h-1 w-16 bg-brand-300 mx-auto rounded-full mt-4"></div>
@@ -93,17 +93,21 @@ const About: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="flex flex-col items-center text-center bg-white p-8 md:p-10 rounded-3xl shadow-sm"
           >
-            <div className="w-40 h-40 mb-6 flex-shrink-0 bg-stone-100 rounded-full border-4 border-brand-200 shadow-lg flex items-center justify-center text-stone-400">
-               <User size={64} strokeWidth={1.5} />
+            <div className="w-40 h-40 mb-6 flex-shrink-0 rounded-full border-4 border-brand-200 shadow-lg overflow-hidden">
+               <img 
+                 src="/images/Foot_care_01.png" 
+                 alt="Tresor — Inhaberin & medizinische Fusspflegerin" 
+                 className="w-full h-full object-cover"
+               />
             </div>
             <h3 className="text-2xl font-bold text-brand-900 mb-2">Tresor</h3>
             <p className="text-brand-700 font-semibold mb-4">Inhaberin & medizinische Fusspflegerin</p>
             <p className="text-stone-600 leading-relaxed">
               Mit Hingabe und Expertise sorgt Tresor für das Wohlbefinden Ihrer Füße. Ihre präzise Arbeitsweise und ihr freundliches Auftreten machen jede Behandlung zu einem entspannenden Erlebnis.
             </p>
-            <div className="mt-6 flex gap-4 justify-center text-stone-400">
-               <User size={20} className="text-accent-400" />
-               <HeartHandshake size={20} className="text-accent-400" />
+            <div className="mt-6 flex gap-2 justify-center">
+              <span className="bg-accent-50 text-accent-700 text-xs font-semibold px-3 py-1 rounded-full">Fußpflege</span>
+              <span className="bg-brand-50 text-brand-700 text-xs font-semibold px-3 py-1 rounded-full">Head Spa</span>
             </div>
           </motion.div>
 
@@ -114,17 +118,21 @@ const About: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
             className="flex flex-col items-center text-center bg-white p-8 md:p-10 rounded-3xl shadow-sm"
           >
-            <div className="w-40 h-40 mb-6 flex-shrink-0 bg-stone-100 rounded-full border-4 border-brand-200 shadow-lg flex items-center justify-center text-stone-400">
-               <User size={64} strokeWidth={1.5} />
+            <div className="w-40 h-40 mb-6 flex-shrink-0 rounded-full border-4 border-brand-200 shadow-lg overflow-hidden">
+               <img 
+                 src="/images/nenette_image_01.png" 
+                 alt="Nenette — Inhaberin & medizinische Fusspflegerin" 
+                 className="w-full h-full object-cover"
+               />
             </div>
             <h3 className="text-2xl font-bold text-brand-900 mb-2">Nenette</h3>
             <p className="text-brand-700 font-semibold mb-4">Inhaberin & medizinische Fusspflegerin</p>
             <p className="text-stone-600 leading-relaxed">
               Nenette verbindet fachliches Know-how mit einer großen Portion Empathie. Sie nimmt sich Zeit für Ihre individuellen Bedürfnisse und garantiert höchste Qualität bei jeder Fußpflege.
             </p>
-            <div className="mt-6 flex gap-4 justify-center text-stone-400">
-               <User size={20} className="text-accent-400" />
-               <HeartHandshake size={20} className="text-accent-400" />
+            <div className="mt-6 flex gap-2 justify-center">
+              <span className="bg-accent-50 text-accent-700 text-xs font-semibold px-3 py-1 rounded-full">Fußpflege</span>
+              <span className="bg-brand-50 text-brand-700 text-xs font-semibold px-3 py-1 rounded-full">Wellness</span>
             </div>
           </motion.div>
         </div>

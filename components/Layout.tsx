@@ -23,8 +23,26 @@ const Layout: React.FC = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isMenuOpen]);
+
   return (
     <div className="min-h-screen flex flex-col font-sans text-stone-800 bg-stone-50">
+      {/* Skip to Content — Accessibility */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-brand-900 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-bold"
+      >
+        Zum Inhalt springen
+      </a>
+
       {/* Top Bar */}
       <div className="bg-brand-950 text-brand-100 py-2 px-4 text-sm hidden md:block">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -45,14 +63,15 @@ const Layout: React.FC = () => {
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled ? 'bg-white shadow-md py-2' : 'bg-white/95 backdrop-blur-md py-3'
         }`}
+        aria-label="Hauptnavigation"
       >
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
           {/* Logo Brand */}
-          <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="flex flex-col mr-8 group shrink-0">
+          <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="flex flex-col mr-8 group shrink-0 min-w-0">
             <span className="text-2xl sm:text-3xl font-display font-bold text-brand-900 tracking-wide leading-none">
               Schwesterherz
             </span>
-            <span className="text-[10px] sm:text-[11px] text-brand-500 font-medium tracking-widest uppercase mt-0.5 group-hover:text-brand-700 transition-colors">
+            <span className="text-[10px] sm:text-[11px] text-brand-500 font-medium tracking-widest uppercase mt-0.5 group-hover:text-brand-700 transition-colors truncate">
               Deine Oase für Schönheit & Entspannung
             </span>
           </NavLink>
@@ -96,6 +115,7 @@ const Layout: React.FC = () => {
               className="p-2 text-stone-800 hover:bg-stone-50 rounded-full transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Menü schließen" : "Menü öffnen"}
+              aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -103,46 +123,51 @@ const Layout: React.FC = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl shadow-xl border-t border-stone-100 flex flex-col p-4 animate-in slide-in-from-top-2 max-h-[85vh] overflow-y-auto">
-            {NAV_ITEMS.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                end={item.path === '/'}
-                onClick={() => setIsMenuOpen(false)}
-                className={({ isActive }) =>
-                  `py-3 px-4 rounded-lg transition-colors text-lg ${
-                    isActive ? 'bg-brand-50 text-brand-900 font-bold' : 'text-stone-600 hover:bg-stone-50'
-                  }`
-                }
-              >
-                {item.label}
-              </NavLink>
-            ))}
-            <div className="mt-4 pt-4 border-t border-stone-100">
-               <a 
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsMenuOpen(false)}
-                className="block w-full text-center bg-brand-900 text-white px-5 py-3 rounded-xl font-bold shadow-md active:bg-brand-800"
-              >
-                Termin buchen
-              </a>
-            </div>
+        <div 
+          className={`lg:hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl shadow-xl border-t border-stone-100 flex flex-col p-4 max-h-[85vh] overflow-y-auto transition-all duration-300 ease-in-out ${
+            isMenuOpen 
+              ? 'opacity-100 translate-y-0 pointer-events-auto' 
+              : 'opacity-0 -translate-y-2 pointer-events-none'
+          }`}
+          aria-hidden={!isMenuOpen}
+        >
+          {NAV_ITEMS.map((item) => (
+            <NavLink
+              key={item.path}
+              to={item.path}
+              end={item.path === '/'}
+              onClick={() => setIsMenuOpen(false)}
+              className={({ isActive }) =>
+                `py-3 px-4 rounded-lg transition-colors text-lg ${
+                  isActive ? 'bg-brand-50 text-brand-900 font-bold' : 'text-stone-600 hover:bg-stone-50'
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+          <div className="mt-4 pt-4 border-t border-stone-100">
+             <a 
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setIsMenuOpen(false)}
+              className="block w-full text-center bg-brand-900 text-white px-5 py-3 rounded-xl font-bold shadow-md active:bg-brand-800"
+            >
+              Termin buchen
+            </a>
           </div>
-        )}
+        </div>
       </nav>
 
       {/* Content */}
-      <main className="flex-grow">
+      <main id="main-content" className="flex-grow">
         <Outlet />
       </main>
 
       {/* Footer */}
       <footer className="bg-brand-950 text-brand-100 py-12 border-t border-brand-900">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div>
             <div className="mb-6">
               <h3 className="text-2xl font-display font-bold text-brand-300 leading-tight">Schwesterherz</h3>
@@ -207,13 +232,14 @@ const Layout: React.FC = () => {
                   href="https://www.instagram.com/schwesterherzfusspflege?igsh=MTI1MjA5N25iMHVlbg==" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="block aspect-square overflow-hidden rounded-md hover:opacity-80 transition-opacity bg-brand-900"
+                  className="block aspect-square overflow-hidden rounded-md hover:opacity-80 hover:scale-105 transition-all duration-300 bg-brand-900"
                 >
                   <img 
                     src={src} 
                     alt={`Instagram Post ${i + 1}`} 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
                   />
                 </a>
               ))}
@@ -228,7 +254,7 @@ const Layout: React.FC = () => {
             </a>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-brand-900 text-center text-xs text-brand-500/60 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-brand-900 text-center text-xs text-brand-500/60 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-6">
           <span>© {new Date().getFullYear()} Schwesterherz. Alle Rechte vorbehalten.</span>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
              <Link to="/kunden-erfassungsbogen" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Kunden-Erfassungsbogen</Link>
