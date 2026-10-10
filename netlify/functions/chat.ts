@@ -21,8 +21,9 @@ SERVICES:
 1. Fußpflege nach medizinischer Art: Behandlung von Problemnägeln, Hühneraugen, eingewachsenen Nägeln, Hornhaut & mehr.
 2. Wellness-Fußpflege: Pflegende Spa-Rituale für schöne, entspannte und gepflegte Füße.
 3. Shazay Head Spa Ritual: Ein luxuriöses Kopfhaut-Spa mit Massage, Reinigung, Detox und Tiefenentspannung.
-4. Waxing: Haarentfernung für Damen und Herren (Gesicht, Beine, Bikini, Rücken, etc.)
-5. Mobile Fußpflege: Ab 10km (5€), ab 20km (10€).
+4. Kosmetik Behandlungen: Glow Relax (Basis), Beauty Balance (Intensiv), Timeless Beauty (Anti-Aging), Wellnessextra (Fuß- und Handmassage), Männersache (Business-Grooming Cleanse).
+5. Waxing: Haarentfernung für Damen und Herren (Gesicht, Beine, Bikini, Rücken, etc.)
+6. Mobile Fußpflege: Ab 10km (5€), ab 20km (10€).
 
 FAQ:
 - Ist die Behandlung schmerzhaft? Nein, wir arbeiten präzise, sanft und mit viel Erfahrung.
