@@ -11,7 +11,9 @@ import {
   Stethoscope,
   Gift,
   Crown,
-  Car
+  Car,
+  Flower2,
+  User
 } from "lucide-react";
 import { NavItem, ServiceItem, PriceCategory, Testimonial, FaqItem } from "./types";
 
@@ -270,6 +272,75 @@ export const PRICES: PriceCategory[] = [
           "Oberschenkel & Unterschenkel",
           "Füße mit Zehen",
           "Abschlussmassage 15 min"
+        ]
+      }
+    ]
+  },
+  {
+    title: "Kosmetik Behandlungen",
+    icon: Flower2,
+    description: "Exklusive Gesichtsbehandlungen für Vitalität, Frische und Tiefenentspannung.",
+    items: [
+      {
+        name: "Glow Relax (Basis Behandlung)",
+        details: [
+          "Reinigung",
+          "Peeling",
+          "Bedampfen",
+          "Maske",
+          "Abschlusspflege"
+        ]
+      },
+      {
+        name: "Beauty Balance (Intensivbehandlung)",
+        description: "Dauer: 75 min",
+        details: [
+          "Reinigung",
+          "Peeling",
+          "Bedampfen",
+          "Maske",
+          "Augenbrauen zupfen und färben",
+          "Wimpernfärben",
+          "Serum",
+          "Toner, Gesichtsmassage und Abschlusspflege"
+        ]
+      },
+      {
+        name: "Timeless Beauty (Anti Ageing Treatment)",
+        description: "Dauer: 80 min",
+        details: [
+          "Reinigung",
+          "Peeling",
+          "Bedampfen",
+          "Maske",
+          "Augenbrauen zupfen und färben",
+          "Wimpernfärben",
+          "Serum Hyaluronsäure",
+          "Toner",
+          "Gesichts- und Dekolletémassage",
+          "Villes-Maske und Abschlusspflege"
+        ]
+      },
+      {
+        name: "Wellnessextra",
+        details: [
+          "Fuß- und Handmassage: 30 €"
+        ]
+      }
+    ]
+  },
+  {
+    title: "Psst! Männersache",
+    icon: User,
+    description: "Gezielte Frische und Tiefenreinigung für den anspruchsvollen Mann.",
+    items: [
+      {
+        name: "Männersache! Business-Grooming",
+        details: [
+          "Cleanse Tiefenreinigung & Enzympeeling",
+          "Vitalisierende Gesichts- und Kopfhautmassage",
+          "Hydratisierende Tuchmaske und Augenpflege",
+          "Mattierende Abschlusspflege"
         ]
       }
     ]
