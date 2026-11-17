@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import Layout from './components/Layout';
 import Home from './pages/Home';
@@ -43,7 +43,7 @@ const PageTracker: React.FC = () => {
 const App: React.FC = () => {
   return (
     <MotionConfig reducedMotion="user">
-      <HashRouter>
+      <BrowserRouter>
         <PageTracker />
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -59,7 +59,7 @@ const App: React.FC = () => {
             <Route path="kunden-erfassungsbogen" element={<KundenErfassungsbogen />} />
           </Route>
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </MotionConfig>
   );
 };

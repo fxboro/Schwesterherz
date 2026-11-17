@@ -7,13 +7,14 @@ import { MapPin, Phone, Mail, Clock, AlertCircle } from 'lucide-react';
 type FieldName = 'name' | 'email' | 'phone' | 'message';
 
 const Contact: React.FC = () => {
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success'>('idle');
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     treatment: 'general',
-    message: ''
+    message: '',
+    'bot-field': ''
   });
   const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
   const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
@@ -66,7 +67,7 @@ const Contact: React.FC = () => {
     setErrors(prev => ({ ...prev, [field]: err || undefined }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     const newErrors = validate();
@@ -79,18 +80,41 @@ const Contact: React.FC = () => {
     }
     
     setFormStatus('sending');
-    // Simulate email sending
-    setTimeout(() => {
+    try {
+      const payload = new URLSearchParams({
+        'form-name': 'kontakt',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        treatment: formData.treatment,
+        message: formData.message,
+        'bot-field': formData['bot-field'],
+      });
+
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: payload.toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
       setFormStatus('success');
       setFormData({
         name: '',
         email: '',
         phone: '',
         treatment: 'general',
-        message: ''
+        message: '',
+        'bot-field': ''
       });
       setTouched({});
-    }, 1500);
+    } catch (error) {
+      console.error('Contact form submission failed:', error);
+      setFormStatus('error');
+    }
   };
 
   return (
@@ -180,7 +204,37 @@ const Contact: React.FC = () => {
                  </button>
                </div>
              ) : (
-               <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 md:space-y-8" noValidate>
+               <form
+                 ref={formRef}
+                 name="kontakt"
+                 method="POST"
+                 data-netlify="true"
+                 data-netlify-honeypot="bot-field"
+                 onSubmit={handleSubmit}
+                 className="space-y-6 md:space-y-8"
+                 noValidate
+               >
+                 <input type="hidden" name="form-name" value="kontakt" />
+                 <p hidden>
+                   <label>
+                     Bitte nicht ausfüllen:
+                     <input
+                       name="bot-field"
+                       tabIndex={-1}
+                       aria-hidden="true"
+                       value={formData['bot-field']}
+                       onChange={(e) => setFormData(prev => ({ ...prev, 'bot-field': e.target.value }))}
+                     />
+                   </label>
+                 </p>
+                 {formStatus === 'error' && (
+                   <div role="alert" className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl text-sm flex items-start gap-2.5">
+                     <AlertCircle size={18} className="shrink-0 mt-0.5 text-red-600" aria-hidden="true" />
+                     <span>
+                       Beim Senden ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie uns telefonisch unter {CONTACT_INFO.phone}.
+                     </span>
+                   </div>
+                 )}
                  <div className="flex flex-col">
                    <label htmlFor="name" className="block text-sm font-medium text-stone-700 mb-2">Name <span className="text-red-600" aria-hidden="true">*</span></label>
                    <input 

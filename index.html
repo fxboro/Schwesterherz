@@ -199,6 +199,19 @@
     <!-- End Meta Pixel Code -->
 </head>
   <body>
+    <!-- Static form for Netlify Forms SPA build-time detection -->
+    <form name="kontakt" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <select name="treatment">
+        <option value="general">Allgemeine Anfrage</option>
+        <option value="med-fuss">Fußpflege nach medizinischer Art</option>
+        <option value="wellness">Wellness Fußpflege</option>
+        <option value="headspa">Shazay Head Spa Ritual</option>
+      </select>
+      <textarea name="message"></textarea>
+    </form>
     <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
