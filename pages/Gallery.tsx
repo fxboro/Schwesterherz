@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
 
@@ -12,6 +13,76 @@ const galleryImages = [
 ];
 
 const Gallery: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const openLightbox = (index: number) => {
+    setActiveIndex(index);
+    const dialog = dialogRef.current;
+    if (dialog && !dialog.open) {
+      dialog.showModal();
+    }
+  };
+
+  const closeLightbox = useCallback(() => {
+    const dialog = dialogRef.current;
+    if (dialog?.open) {
+      dialog.close();
+    }
+  }, []);
+
+  const showPrev = useCallback(() => {
+    setActiveIndex((prev) =>
+      prev === null ? null : (prev - 1 + galleryImages.length) % galleryImages.length
+    );
+  }, []);
+
+  const showNext = useCallback(() => {
+    setActiveIndex((prev) =>
+      prev === null ? null : (prev + 1) % galleryImages.length
+    );
+  }, []);
+
+  // Light-dismiss fallback for browsers without native <dialog closedby="any">
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const handleClose = () => setActiveIndex(null);
+    dialog.addEventListener('close', handleClose);
+
+    if ('closedBy' in HTMLDialogElement.prototype) {
+      return () => dialog.removeEventListener('close', handleClose);
+    }
+
+    const isOutside = (e: PointerEvent) => {
+      const r = dialog.getBoundingClientRect();
+      return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+    };
+
+    let pressedOutside = false;
+    const onPointerDown = (e: PointerEvent) => {
+      pressedOutside = isOutside(e);
+    };
+    const onPointerUp = (e: PointerEvent) => {
+      if (pressedOutside && isOutside(e)) {
+        dialog.close();
+      }
+      pressedOutside = false;
+    };
+
+    dialog.addEventListener('pointerdown', onPointerDown);
+    dialog.addEventListener('pointerup', onPointerUp);
+
+    return () => {
+      dialog.removeEventListener('close', handleClose);
+      dialog.removeEventListener('pointerdown', onPointerDown);
+      dialog.removeEventListener('pointerup', onPointerUp);
+    };
+  }, []);
+
+  const activeImage = activeIndex !== null ? galleryImages[activeIndex] : null;
+
   return (
     <>
       <SEO 
@@ -45,21 +116,91 @@ const Gallery: React.FC = () => {
         <h2 className="text-2xl font-bold text-center mb-8 text-brand-900">Studio Impressionen</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {galleryImages.map((img, idx) => (
-            <div key={idx} className="group relative rounded-xl overflow-hidden shadow-sm aspect-[4/3] cursor-pointer">
+            <button
+              key={idx}
+              type="button"
+              onClick={() => openLightbox(idx)}
+              aria-label={`${img.caption} vergrößern`}
+              className="group relative rounded-xl overflow-hidden shadow-sm aspect-[4/3] cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
+            >
               <img 
                 src={img.src} 
                 alt={img.caption}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
+                decoding="async"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                 <span className="text-brand-300 text-xs font-bold uppercase tracking-wider mb-1">{img.category}</span>
-                <span className="text-white font-bold text-lg">{img.caption}</span>
+                <span className="text-white font-bold text-lg flex items-center justify-between gap-2">
+                  <span>{img.caption}</span>
+                  <ZoomIn size={18} className="shrink-0 text-brand-200" aria-hidden="true" />
+                </span>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </Section>
+
+      {/* Native Lightbox Dialog */}
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="lightbox-title"
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowLeft') showPrev();
+          if (e.key === 'ArrowRight') showNext();
+        }}
+        {...({ closedby: 'any' } as any)}
+        className="lightbox-dialog m-auto max-w-4xl w-[calc(100vw-2rem)] rounded-2xl bg-stone-900 text-white p-0 shadow-2xl border border-stone-700/60 overflow-hidden"
+      >
+        {activeImage && (
+          <div className="relative flex flex-col">
+            <div className="flex items-center justify-between px-5 py-3.5 bg-stone-950/80 border-b border-stone-800">
+              <div>
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-brand-300">
+                  {activeImage.category}
+                </span>
+                <h2 id="lightbox-title" className="text-base sm:text-lg font-display font-bold text-white">
+                  {activeImage.caption}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={closeLightbox}
+                autoFocus
+                aria-label="Lightbox schließen"
+                className="p-2 rounded-full text-stone-300 hover:text-white hover:bg-stone-800 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-300"
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            <div className="relative bg-black flex items-center justify-center">
+              <img
+                src={activeImage.src}
+                alt={activeImage.caption}
+                className="max-h-[75vh] w-full object-contain"
+              />
+              <button
+                type="button"
+                onClick={showPrev}
+                aria-label="Vorheriges Bild"
+                className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-stone-900/75 hover:bg-stone-900 text-white border border-white/15 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-300"
+              >
+                <ChevronLeft size={22} />
+              </button>
+              <button
+                type="button"
+                onClick={showNext}
+                aria-label="Nächstes Bild"
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-stone-900/75 hover:bg-stone-900 text-white border border-white/15 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-300"
+              >
+                <ChevronRight size={22} />
+              </button>
+            </div>
+          </div>
+        )}
+      </dialog>
     </>
   );
 };

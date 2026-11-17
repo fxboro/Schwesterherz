@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
 import { CONTACT_INFO } from '../constants';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, AlertCircle } from 'lucide-react';
+
+type FieldName = 'name' | 'email' | 'phone' | 'message';
 
 const Contact: React.FC = () => {
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success'>('idle');
@@ -13,49 +15,66 @@ const Contact: React.FC = () => {
     treatment: 'general',
     message: ''
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<FieldName, string>>>({});
+  const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const validateField = (field: FieldName, value: string): string => {
+    if (field === 'name') {
+      if (!value.trim()) return 'Bitte geben Sie Ihren Namen ein.';
+      if (value.trim().length < 2) return 'Der Name muss mindestens 2 Zeichen lang sein.';
+    }
+    if (field === 'email') {
+      if (!value.trim()) return 'Bitte geben Sie Ihre E-Mail-Adresse ein.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
+    }
+    if (field === 'phone') {
+      if (value && !/^[\d\s+\-()]+$/.test(value)) return 'Bitte geben Sie eine gültige Telefonnummer ein.';
+    }
+    if (field === 'message') {
+      if (!value.trim()) return 'Bitte geben Sie eine Nachricht ein.';
+      if (value.trim().length < 10) return 'Die Nachricht muss mindestens 10 Zeichen lang sein.';
+    }
+    return '';
+  };
 
   const validate = () => {
-    const newErrors: Record<string, string> = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'Bitte geben Sie Ihren Namen ein.';
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'Der Name muss mindestens 2 Zeichen lang sein.';
+    const fields: FieldName[] = ['name', 'email', 'phone', 'message'];
+    const newErrors: Partial<Record<FieldName, string>> = {};
+    for (const field of fields) {
+      const err = validateField(field, formData[field]);
+      if (err) newErrors[field] = err;
     }
-
-    if (!formData.email.trim()) {
-      newErrors.email = 'Bitte geben Sie Ihre E-Mail-Adresse ein.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
-    }
-
-    if (formData.phone && !/^[\d\s\+\-\(\)]+$/.test(formData.phone)) {
-      newErrors.phone = 'Bitte geben Sie eine gültige Telefonnummer ein.';
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'Bitte geben Sie eine Nachricht ein.';
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Die Nachricht muss mindestens 10 Zeichen lang sein.';
-    }
-
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return newErrors;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
     setFormData(prev => ({ ...prev, [id]: value }));
-    if (errors[id]) {
-      setErrors(prev => ({ ...prev, [id]: '' }));
+    if (id in errors && errors[id as FieldName]) {
+      const err = validateField(id as FieldName, value);
+      setErrors(prev => ({ ...prev, [id]: err || undefined }));
     }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const field = e.target.id as FieldName;
+    if (!formData[field] && !touched[field]) return;
+    setTouched(prev => ({ ...prev, [field]: true }));
+    const err = validateField(field, formData[field]);
+    setErrors(prev => ({ ...prev, [field]: err || undefined }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validate()) {
+    const newErrors = validate();
+    const firstInvalidField = (['name', 'email', 'phone', 'message'] as FieldName[]).find(
+      (f) => Boolean(newErrors[f])
+    );
+    if (firstInvalidField) {
+      formRef.current?.querySelector<HTMLElement>(`#${firstInvalidField}`)?.focus();
       return;
     }
     
@@ -70,6 +89,7 @@ const Contact: React.FC = () => {
         treatment: 'general',
         message: ''
       });
+      setTouched({});
     }, 1500);
   };
 
@@ -145,66 +165,107 @@ const Contact: React.FC = () => {
              <p className="text-stone-500 mb-8 text-sm">Hinweis: Ihre Anfrage wird direkt an unsere Praxis-E-Mail gesendet.</p>
              
              {formStatus === 'success' ? (
-               <div className="bg-brand-50 border border-brand-200 text-brand-900 p-8 rounded-2xl text-center">
+               <div role="status" className="bg-brand-50 border border-brand-200 text-brand-900 p-8 rounded-2xl text-center">
                  <div className="inline-flex bg-brand-100 p-3 rounded-full mb-4">
-                   <Mail size={32} className="text-brand-700"/>
+                   <Mail size={32} className="text-brand-700" aria-hidden="true"/>
                  </div>
                  <h3 className="text-xl font-bold mb-2">Vielen Dank!</h3>
                  <p>Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns schnellstmöglich bei Ihnen.</p>
                  <button 
+                   type="button"
                    onClick={() => setFormStatus('idle')}
-                   className="mt-6 text-sm font-bold text-brand-700 hover:underline"
+                   className="mt-6 text-sm font-bold text-brand-700 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
                  >
                    Neue Nachricht senden
                  </button>
                </div>
              ) : (
-               <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8" noValidate>
+               <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 md:space-y-8" noValidate>
                  <div className="flex flex-col">
-                   <label htmlFor="name" className="block text-sm font-medium text-stone-700 mb-2">Name <span className="text-red-500">*</span></label>
+                   <label htmlFor="name" className="block text-sm font-medium text-stone-700 mb-2">Name <span className="text-red-600" aria-hidden="true">*</span></label>
                    <input 
                      type="text" 
-                     id="name" 
+                     id="name"
+                     name="name"
+                     required
+                     autoComplete="name"
+                     enterKeyHint="next"
+                     aria-invalid={errors.name ? 'true' : 'false'}
+                     aria-describedby={errors.name ? 'name-error' : undefined}
                      value={formData.name}
                      onChange={handleChange}
-                     className={`w-full px-4 py-3.5 md:py-4 rounded-xl border ${errors.name ? 'border-red-500 focus:ring-red-200 focus:border-red-500' : 'border-brand-200 focus:ring-brand-300 focus:border-brand-300'} focus:ring-2 outline-none transition-all`} 
+                     onBlur={handleBlur}
+                     className={`w-full text-base px-4 py-3.5 md:py-4 rounded-xl border ${errors.name ? 'border-red-600 bg-red-50/40 focus:ring-red-200 focus:border-red-600' : 'border-brand-200 focus:ring-brand-300 focus:border-brand-300'} focus:ring-2 outline-none transition-all`} 
                      placeholder="Ihr Name" 
                    />
-                   {errors.name && <p className="text-red-500 text-sm mt-2">{errors.name}</p>}
+                   {errors.name && (
+                     <p id="name-error" className="text-red-700 text-sm mt-2 flex items-center gap-1.5">
+                       <AlertCircle size={15} className="shrink-0" aria-hidden="true" />
+                       <span>{errors.name}</span>
+                     </p>
+                   )}
                  </div>
                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="flex flex-col">
-                      <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-2">E-Mail <span className="text-red-500">*</span></label>
+                      <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-2">E-Mail <span className="text-red-600" aria-hidden="true">*</span></label>
                       <input 
                         type="email" 
-                        id="email" 
+                        id="email"
+                        name="email"
+                        required
+                        autoComplete="email"
+                        autoCorrect="off"
+                        autoCapitalize="none"
+                        spellCheck={false}
+                        enterKeyHint="next"
+                        aria-invalid={errors.email ? 'true' : 'false'}
+                        aria-describedby={errors.email ? 'email-error' : undefined}
                         value={formData.email}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3.5 md:py-4 rounded-xl border ${errors.email ? 'border-red-500 focus:ring-red-200 focus:border-red-500' : 'border-brand-200 focus:ring-brand-300 focus:border-brand-300'} focus:ring-2 outline-none transition-all`} 
+                        onBlur={handleBlur}
+                        className={`w-full text-base px-4 py-3.5 md:py-4 rounded-xl border ${errors.email ? 'border-red-600 bg-red-50/40 focus:ring-red-200 focus:border-red-600' : 'border-brand-200 focus:ring-brand-300 focus:border-brand-300'} focus:ring-2 outline-none transition-all`} 
                         placeholder="ihre@email.de" 
                       />
-                      {errors.email && <p className="text-red-500 text-sm mt-2">{errors.email}</p>}
+                      {errors.email && (
+                        <p id="email-error" className="text-red-700 text-sm mt-2 flex items-center gap-1.5">
+                          <AlertCircle size={15} className="shrink-0" aria-hidden="true" />
+                          <span>{errors.email}</span>
+                        </p>
+                      )}
                     </div>
                     <div className="flex flex-col">
                       <label htmlFor="phone" className="block text-sm font-medium text-stone-700 mb-2">Telefon</label>
                       <input 
                         type="tel" 
-                        id="phone" 
+                        id="phone"
+                        name="phone"
+                        autoComplete="tel"
+                        inputMode="tel"
+                        enterKeyHint="next"
+                        aria-invalid={errors.phone ? 'true' : 'false'}
+                        aria-describedby={errors.phone ? 'phone-error' : undefined}
                         value={formData.phone}
                         onChange={handleChange}
-                        className={`w-full px-4 py-3.5 md:py-4 rounded-xl border ${errors.phone ? 'border-red-500 focus:ring-red-200 focus:border-red-500' : 'border-brand-200 focus:ring-brand-300 focus:border-brand-300'} focus:ring-2 outline-none transition-all`} 
+                        onBlur={handleBlur}
+                        className={`w-full text-base px-4 py-3.5 md:py-4 rounded-xl border ${errors.phone ? 'border-red-600 bg-red-50/40 focus:ring-red-200 focus:border-red-600' : 'border-brand-200 focus:ring-brand-300 focus:border-brand-300'} focus:ring-2 outline-none transition-all`} 
                         placeholder="0123 456789" 
                       />
-                      {errors.phone && <p className="text-red-500 text-sm mt-2">{errors.phone}</p>}
+                      {errors.phone && (
+                        <p id="phone-error" className="text-red-700 text-sm mt-2 flex items-center gap-1.5">
+                          <AlertCircle size={15} className="shrink-0" aria-hidden="true" />
+                          <span>{errors.phone}</span>
+                        </p>
+                      )}
                     </div>
                  </div>
                  <div className="flex flex-col">
                    <label htmlFor="treatment" className="block text-sm font-medium text-stone-700 mb-2">Gewünschte Behandlung</label>
                    <select 
-                     id="treatment" 
+                     id="treatment"
+                     name="treatment"
                      value={formData.treatment}
                      onChange={handleChange}
-                     className="w-full px-4 py-3.5 md:py-4 rounded-xl border border-brand-200 focus:ring-2 focus:ring-brand-300 focus:border-brand-300 outline-none transition-all bg-white"
+                     className="w-full text-base px-4 py-3.5 md:py-4 rounded-xl border border-brand-200 focus:ring-2 focus:ring-brand-300 focus:border-brand-300 outline-none transition-all bg-white"
                    >
                      <option value="general">Allgemeine Anfrage</option>
                      <option value="med-fuss">Fußpflege nach medizinischer Art</option>
@@ -213,21 +274,32 @@ const Contact: React.FC = () => {
                    </select>
                  </div>
                  <div className="flex flex-col">
-                   <label htmlFor="message" className="block text-sm font-medium text-stone-700 mb-2">Nachricht <span className="text-red-500">*</span></label>
+                   <label htmlFor="message" className="block text-sm font-medium text-stone-700 mb-2">Nachricht <span className="text-red-600" aria-hidden="true">*</span></label>
                    <textarea 
-                     id="message" 
+                     id="message"
+                     name="message"
+                     required
                      rows={4} 
+                     enterKeyHint="send"
+                     aria-invalid={errors.message ? 'true' : 'false'}
+                     aria-describedby={errors.message ? 'message-error' : undefined}
                      value={formData.message}
                      onChange={handleChange}
-                     className={`w-full px-4 py-3.5 md:py-4 rounded-xl border ${errors.message ? 'border-red-500 focus:ring-red-200 focus:border-red-500' : 'border-brand-200 focus:ring-brand-300 focus:border-brand-300'} focus:ring-2 outline-none transition-all`} 
+                     onBlur={handleBlur}
+                     className={`w-full text-base px-4 py-3.5 md:py-4 rounded-xl border ${errors.message ? 'border-red-600 bg-red-50/40 focus:ring-red-200 focus:border-red-600' : 'border-brand-200 focus:ring-brand-300 focus:border-brand-300'} focus:ring-2 outline-none transition-all`} 
                      placeholder="Wie können wir Ihnen helfen?"
                    ></textarea>
-                   {errors.message && <p className="text-red-500 text-sm mt-2">{errors.message}</p>}
+                   {errors.message && (
+                     <p id="message-error" className="text-red-700 text-sm mt-2 flex items-center gap-1.5">
+                       <AlertCircle size={15} className="shrink-0" aria-hidden="true" />
+                       <span>{errors.message}</span>
+                     </p>
+                   )}
                  </div>
                  <button 
                    type="submit" 
                    disabled={formStatus === 'sending'}
-                   className="w-full bg-brand-900 text-white font-bold py-4 rounded-xl hover:bg-brand-800 transition-colors shadow-md disabled:opacity-70 flex justify-center items-center"
+                   className="w-full min-h-[48px] bg-brand-900 text-white font-bold py-4 rounded-xl hover:bg-brand-800 transition-colors shadow-md disabled:opacity-70 flex justify-center items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-900"
                  >
                    {formStatus === 'sending' ? 'Wird gesendet...' : 'Nachricht absenden'}
                  </button>

@@ -97,6 +97,14 @@ const Chatbot: React.FC = () => {
     <>
       {/* Chat Window */}
       <div
+        id="schwesterherz-chatbot"
+        role="region"
+        aria-label="Schwesterherz KI Chat"
+        aria-hidden={!isOpen}
+        {...(!isOpen ? ({ inert: '' } as any) : {})}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape' && isOpen) setIsOpen(false);
+        }}
         className={`fixed bottom-24 right-6 w-[350px] sm:w-[400px] max-w-[calc(100vw-2rem)] h-[550px] max-h-[80vh] bg-white rounded-2xl shadow-2xl overflow-hidden z-50 flex flex-col border border-brand-100 transition-all duration-200 origin-bottom-right ${
           isOpen 
             ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' 
@@ -107,7 +115,7 @@ const Chatbot: React.FC = () => {
         <div className="bg-brand-900 text-white p-4 flex justify-between items-center shrink-0">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-brand-800 flex items-center justify-center">
-              <Sparkles size={16} className="text-brand-200" />
+              <Sparkles size={16} className="text-brand-200" aria-hidden="true" />
             </div>
             <div>
               <h3 className="font-bold text-brand-50">Schwesterherz KI</h3>
@@ -115,6 +123,7 @@ const Chatbot: React.FC = () => {
             </div>
           </div>
           <button
+            type="button"
             onClick={() => setIsOpen(false)}
             className="text-brand-200 hover:text-white transition-colors"
             aria-label="Chat schließen"
@@ -124,7 +133,7 @@ const Chatbot: React.FC = () => {
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 overflow-y-auto p-4 bg-stone-50 space-y-4">
+        <div role="log" aria-live="polite" aria-label="Chat-Verlauf" className="flex-1 overflow-y-auto p-4 bg-stone-50 space-y-4">
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -162,16 +171,19 @@ const Chatbot: React.FC = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
+              aria-label="Nachricht eingeben"
+              enterKeyHint="send"
               placeholder="Schreibe eine Nachricht..."
-              className="flex-1 bg-stone-100 text-stone-800 rounded-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 pr-12"
+              className="flex-1 bg-stone-100 text-stone-800 rounded-full px-4 py-3 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 pr-12"
               disabled={isLoading}
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
+              aria-label="Nachricht senden"
               className="absolute right-2 w-8 h-8 flex items-center justify-center bg-brand-900 text-white rounded-full hover:bg-brand-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Send size={14} />
+              <Send size={14} aria-hidden="true" />
             </button>
           </form>
           <div className="text-center mt-2">
@@ -182,11 +194,14 @@ const Chatbot: React.FC = () => {
 
       {/* FAB to open chat — positioned above WhatsApp button */}
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-controls="schwesterherz-chatbot"
         className="fixed bottom-20 right-6 bg-brand-900 text-white p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all z-40 flex items-center justify-center border-2 border-brand-800/50"
-        aria-label="KI Chat öffnen"
+        aria-label={isOpen ? 'KI Chat schließen' : 'KI Chat öffnen'}
       >
-        {isOpen ? <X size={28} /> : <Sparkles size={28} />}
+        {isOpen ? <X size={28} aria-hidden="true" /> : <Sparkles size={28} aria-hidden="true" />}
       </button>
     </>
   );

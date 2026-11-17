@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, ArrowRight, Star } from 'lucide-react';
+import { CheckCircle, ArrowRight, Star, Pause, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
@@ -23,13 +23,18 @@ const HERO_SLIDES = [
 
 const Home: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(() =>
+    typeof window !== 'undefined' &&
+    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  );
 
   useEffect(() => {
+    if (isPaused) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isPaused]);
 
   return (
     <>
@@ -66,6 +71,8 @@ const Home: React.FC = () => {
             <img 
               src={slide.image} 
               alt={slide.alt} 
+              fetchPriority={index === 0 ? 'high' : 'low'}
+              loading={index === 0 ? 'eager' : 'lazy'}
               className="w-full h-full object-cover object-center"
             />
           </div>
@@ -76,15 +83,6 @@ const Home: React.FC = () => {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-white w-full py-12 md:py-16 mt-12 md:mt-0">
           <div className="max-w-3xl">
-            <motion.span 
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="inline-block py-1 px-3 rounded-full bg-brand-300/20 border border-brand-300 text-brand-200 text-xs sm:text-sm font-bold uppercase tracking-wider mb-4 sm:mb-6 backdrop-blur-sm"
-            >
-              Willkommen bei Schwesterherz
-            </motion.span>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-display font-bold leading-[1.1] mb-4 sm:mb-6">
               „Entdecken Sie neue Dimensionen der Entspannung"
             </h1>
@@ -110,18 +108,28 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Slider Navigation Dots */}
-        <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-3">
+        {/* Slider Navigation Dots & Pause Control */}
+        <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center items-center gap-3">
           {HERO_SLIDES.map((_, index) => (
             <button
               key={index}
+              type="button"
               onClick={() => setCurrentSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 shadow-sm ${
+              className={`h-2 rounded-full transition-all duration-300 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300 ${
                 index === currentSlide ? 'w-8 bg-brand-300' : 'w-2 bg-white/40 hover:bg-white/80'
               }`}
-              aria-label={`Slide ${index + 1}`}
+              aria-label={`Folie ${index + 1}`}
+              aria-current={index === currentSlide ? 'true' : undefined}
             />
           ))}
+          <button
+            type="button"
+            onClick={() => setIsPaused((prev) => !prev)}
+            aria-label={isPaused ? 'Diashow fortsetzen' : 'Diashow pausieren'}
+            className="ml-2 p-1.5 rounded-full bg-brand-950/60 hover:bg-brand-950/90 text-white/90 border border-white/20 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300"
+          >
+            {isPaused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+          </button>
         </div>
       </div>
 
@@ -146,7 +154,8 @@ const Home: React.FC = () => {
              <div className="absolute -inset-4 bg-brand-300 rounded-2xl rotate-3 -z-10 hidden md:block"></div>
              <img 
                src="/images/Head_massage_01.png" 
-               alt="Relaxed atmosphere" 
+               alt="Entspannende Atmosphäre im Head Spa" 
+               loading="lazy"
                className="rounded-2xl shadow-xl w-full object-cover" 
              />
           </div>

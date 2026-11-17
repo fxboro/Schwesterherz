@@ -23,14 +23,23 @@ const Layout: React.FC = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll when mobile menu is open & close on Escape
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [isMenuOpen]);
 
   return (
@@ -112,6 +121,7 @@ const Layout: React.FC = () => {
               <Phone size={24} />
             </a>
             <button 
+              type="button"
               className="p-2 text-stone-800 hover:bg-stone-50 rounded-full transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Menü schließen" : "Menü öffnen"}
@@ -130,6 +140,7 @@ const Layout: React.FC = () => {
               : 'opacity-0 -translate-y-2 pointer-events-none'
           }`}
           aria-hidden={!isMenuOpen}
+          {...(!isMenuOpen ? ({ inert: '' } as any) : {})}
         >
           {NAV_ITEMS.map((item) => (
             <NavLink

@@ -75,8 +75,89 @@
       h1, h2, h3, h4, h5, h6 {
         font-family: 'Nunito', sans-serif;
       }
-      .smooth-scroll {
-        scroll-behavior: smooth;
+      @media (prefers-reduced-motion: no-preference) {
+        .smooth-scroll {
+          scroll-behavior: smooth;
+        }
+      }
+
+      /* Modern <details> accordion animation */
+      details.faq-item::details-content {
+        interpolate-size: allow-keywords;
+        overflow: clip;
+        contain: layout;
+      }
+      details.faq-item:not([open])::details-content {
+        block-size: 0;
+      }
+      details.faq-item > summary {
+        list-style: none;
+      }
+      details.faq-item > summary::-webkit-details-marker {
+        display: none;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        details.faq-item::details-content {
+          transition: block-size, content-visibility, display;
+          transition-duration: 0.3s;
+          transition-timing-function: ease-in-out;
+          transition-behavior: allow-discrete;
+        }
+        details.faq-item .faq-chevron {
+          transition: rotate 0.2s ease-out;
+        }
+      }
+      details.faq-item[open] .faq-chevron {
+        rotate: 180deg;
+      }
+
+      /* Modern <dialog> top-layer entry/exit & scroll containment */
+      dialog.lightbox-dialog:modal {
+        overscroll-behavior: contain;
+        opacity: 0;
+        transition-property: opacity, transform, display, overlay;
+        transition-duration: 0.25s;
+        transition-timing-function: ease-out;
+        transition-behavior: allow-discrete;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        dialog.lightbox-dialog:modal {
+          transform: scale(0.96);
+        }
+      }
+      dialog.lightbox-dialog[open]:modal {
+        opacity: 1;
+        @starting-style {
+          opacity: 0;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          transform: scale(1);
+          @starting-style {
+            transform: scale(0.96);
+          }
+        }
+      }
+      dialog.lightbox-dialog::backdrop {
+        overflow: hidden;
+        overscroll-behavior: contain;
+        background-color: rgb(28 25 23 / 0);
+        backdrop-filter: blur(4px);
+        transition-property: background-color, display, overlay;
+        transition-duration: 0.25s;
+        transition-timing-function: ease-out;
+        transition-behavior: allow-discrete;
+      }
+      dialog.lightbox-dialog[open]::backdrop {
+        background-color: rgb(28 25 23 / 0.8);
+        @starting-style {
+          background-color: rgb(28 25 23 / 0);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        dialog.lightbox-dialog:modal,
+        dialog.lightbox-dialog::backdrop {
+          transition-duration: 0.1s;
+        }
       }
     </style>
   <script type="importmap">

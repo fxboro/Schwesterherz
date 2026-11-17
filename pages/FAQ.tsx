@@ -2,13 +2,31 @@ import React, { useState } from 'react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
 import { FAQS } from '../constants';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 const FAQ: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndices, setOpenIndices] = useState<Set<number>>(() => new Set([0]));
+  const allOpen = openIndices.size === FAQS.length;
 
-  const toggle = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+  const handleToggleAll = () => {
+    if (allOpen) {
+      setOpenIndices(new Set());
+    } else {
+      setOpenIndices(new Set(FAQS.map((_, i) => i)));
+    }
+  };
+
+  const handleItemToggle = (index: number, isOpen: boolean) => {
+    setOpenIndices((prev) => {
+      if (prev.has(index) === isOpen) return prev;
+      const next = new Set(prev);
+      if (isOpen) {
+        next.add(index);
+      } else {
+        next.delete(index);
+      }
+      return next;
+    });
   };
 
   // FAQ Schema for Google Rich Results
@@ -40,44 +58,40 @@ const FAQ: React.FC = () => {
       </div>
 
       <Section>
-        <div className="max-w-3xl mx-auto" role="list">
-          {FAQS.map((faq, index) => {
-            const isOpen = openIndex === index;
-            const headingId = `faq-heading-${index}`;
-            const panelId = `faq-panel-${index}`;
+        <section className="max-w-3xl mx-auto" aria-labelledby="faq-list-heading">
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <h2 id="faq-list-heading" className="text-lg font-display font-bold text-brand-900">
+              Antworten auf Ihre Fragen
+            </h2>
+            <button
+              type="button"
+              onClick={handleToggleAll}
+              aria-expanded={allOpen}
+              className="text-sm font-semibold text-brand-800 hover:text-brand-950 bg-brand-50 hover:bg-brand-100 border border-brand-200 px-4 py-2 rounded-lg transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
+            >
+              {allOpen ? 'Alle schließen' : 'Alle öffnen'}
+            </button>
+          </div>
 
-            return (
-              <div key={index} className="mb-4" role="listitem">
-                <button
-                  id={headingId}
-                  onClick={() => toggle(index)}
-                  aria-expanded={isOpen}
-                  aria-controls={panelId}
-                  className={`w-full text-left px-6 py-4 rounded-xl flex justify-between items-center transition-all duration-200 ${
-                    isOpen 
-                      ? 'bg-brand-900 text-white shadow-md' 
-                      : 'bg-white hover:bg-stone-50 text-stone-800 shadow-sm border border-stone-100'
-                  }`}
-                >
-                  <span className="font-bold pr-4">{faq.question}</span>
-                  {isOpen ? <ChevronUp size={20} className="shrink-0" /> : <ChevronDown size={20} className="shrink-0" />}
-                </button>
-                <div 
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={headingId}
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                    isOpen ? 'max-h-[2000px] opacity-100 mt-2' : 'max-h-0 opacity-0'
-                  }`}
-                >
-                  <div className="px-6 py-4 text-stone-600 bg-white rounded-xl border border-stone-100 whitespace-pre-wrap leading-relaxed">
-                    {faq.answer}
-                  </div>
+          <div className="space-y-4">
+            {FAQS.map((faq, index) => (
+              <details
+                key={index}
+                open={openIndices.has(index)}
+                onToggle={(e) => handleItemToggle(index, (e.currentTarget as HTMLDetailsElement).open)}
+                className="faq-item group rounded-xl bg-white border border-stone-200 shadow-sm open:border-brand-300 open:shadow-md transition-shadow"
+              >
+                <summary className="w-full cursor-pointer select-none px-6 py-4 rounded-xl flex items-center gap-3 font-bold text-stone-800 hover:bg-stone-50 group-open:bg-brand-900 group-open:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700">
+                  <ChevronDown size={20} className="faq-chevron shrink-0" aria-hidden="true" />
+                  <span>{faq.question}</span>
+                </summary>
+                <div className="px-6 py-4 text-stone-600 whitespace-pre-wrap leading-relaxed border-t border-stone-100">
+                  {faq.answer}
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              </details>
+            ))}
+          </div>
+        </section>
       </Section>
     </>
   );
