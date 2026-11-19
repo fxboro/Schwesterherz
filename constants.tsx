@@ -9,7 +9,6 @@ import {
   Mail, 
   Scissors, 
   Stethoscope,
-  Gift,
   Crown,
   Car,
   Flower2,
@@ -76,68 +75,68 @@ export const SERVICES: ServiceItem[] = [
 
 export const PRICES: PriceCategory[] = [
   {
-    title: "Fußpflege nach medizinischer Art",
+    title: "Professionelle Fußpflege & Wohlfühlpflege",
     icon: Stethoscope,
     items: [
       { 
-        name: "Problemzonen Pflege",
+        name: "Professionelle Fußpflege",
         details: [
-          "Behebung der Nagelprobleme",
-          "Ölfußbad",
-          "Fußpflege",
-          "Abschlusspflege mit lindernden Lotion"
+          "Sorgfältige Nagelpflege",
+          "Pflege beanspruchter Fußbereiche",
+          "Wohltuendes Öl-Fußbad",
+          "Klassische Fußpflege",
+          "Abschlusspflege mit pflegender Lotion."
         ]
       },
       { 
-        name: "Problemzonen Pflege meets entspannende",
+        name: "Fußpflege & Wellness-Auszeit",
         details: [
-          "Fußmassage",
-          "Fußpflege nach medizinischer Art",
-          "Beheben von Problemzonen",
-          "15min Aromatherapie Fußmassage",
-          "sprudelndes Fußbad",
-          "Abschlusspflege mit heilender Salbe."
+          "Professionelle kosmetische Fußpflege.",
+          "Wohltuendes Fußbad",
+          "15 Minuten Aroma-Fußmassage",
+          "Verwöhnende Pflege beanspruchter Fußbereiche",
+          "Abschlusspflege mit reichhaltiger Pflegecreme."
         ]
       },
       { 
         name: "Füße im Fokus: Die Spangentechnik",
         details: [
-          "Fußpflege",
-          "beseitigen der Nagelprobleme",
-          "Ölfußbad",
-          "setzen und anpassen der Spangen (55€ pro Spange)",
-          "Abschlusspflege mit regenerierende Creme."
+          "Kosmetische Fußpflege",
+          "Sorgfältige Nagelpflege",
+          "Wohltuendes Öl-Fußbad",
+          "Anbringen und Anpassen einer Nagelspange (55 € pro Spange)",
+          "Abschlusspflege mit regenerierender Pflegecreme."
         ]
       }
     ]
   },
   {
-    title: "Kosmetische Fusspflege",
+    title: "Kosmetische Fußpflege",
     icon: Sparkles,
     items: [
       {
         name: "Fußpflege",
         details: [
-          "Fußwaschung",
-          "Nägel schneiden und feilen"
+          "Sanfte Fußwaschung",
+          "Nägel kürzen und in Form feilen"
         ]
       },
       {
         name: "Fußpflege meets Lack",
         details: [
-          "Fußpflege",
+          "Klassische Fußpflege",
           "Fußwaschung",
-          "Nagellack",
-          "Abschlusspflege mit Lotion"
+          "Auftragen von Nagellack",
+          "Abschlusspflege mit pflegender Lotion."
         ]
       },
       {
-        name: "Füße zum Verlieben: Pflege und farbiger Shellac",
+        name: "Füße zum Verlieben – Pflege & Shellac",
         details: [
-          "Fußpflege",
-          "Fusswellnessbad",
-          "Shellac",
-          "Abschlusspflege mit einer heilsamen Balsam"
+          "Klassische Fußpflege",
+          "Entspannendes Fußbad",
+          "Shellac.",
+          "Abschlusspflege mit pflegendem Balsam."
         ]
       }
     ]
@@ -147,75 +146,79 @@ export const PRICES: PriceCategory[] = [
     icon: Footprints,
     items: [
       {
-        name: "Wellness Fußbehandlung",
-        description: "Vitalisierende Fußpflege für Wohlbefinden und Gesundheit",
+        name: "Wellness-Fußbehandlung",
         details: [
-          "Fußwellness",
-          "klassische Fußpflege",
-          "Fußbad",
-          "Peeling",
-          "Abschlusspflege."
+          "Wohltuende Fußpflege",
+          "Klassische Nagelpflege",
+          "Entspannendes Fußbad",
+          "Sanftes Peeling",
+          "Abschlusspflege"
         ]
       },
       {
         name: "Classic Behandlung",
         details: [
-          "klassisch Fußpflege",
+          "Klassische Fußpflege",
           "Fußwaschung",
-          "Dampfpeeling",
-          "Abschlusspflege",
-          "Aromatherapie Massage 15 min"
+          "Sanftes Dampfpeeling",
+          "Pflegende Abschlusspflege",
+          "15 Minuten Aromatherapie-Fußmassage."
         ]
       },
       {
-        name: "Jelly Spa Wellness Behandlung",
+        name: "Jelly Spa Wellness Behandlung.",
         details: [
-          "klassische Fußpflege",
-          "Fußbad",
-          "Jellyspa Peeling",
+          "Klassische Fußpflege",
+          "Entspannendes Fußbad",
+          "Jelly-Spa-Peeling",
           "Nagellack",
-          "Abschlusspflege mit beruhigend Creme",
-          "entspanntes Aromatherapie Massage 20 min."
+          "Abschlusspflege mit beruhigender Creme",
+          "20 Minuten entspannende Aromatherapie-Fußmassage."
         ]
       }
     ]
   },
   {
-    title: "V.I.P Platinum Fußpflege",
+    title: "V.I.P. Platinum Fußpflege",
+    description: "Eine exklusive Verwöhnbehandlung für anspruchsvolle Füße",
     icon: Crown,
     disableExpand: true,
     items: [
       {
-        name: "V.I.P Platinum Behandlung",
+        name: "V.I.P. Platinum Behandlung.",
         details: [
-          "klassische Fußpflege",
-          "heilendes Kräuterbad",
-          "Dampf Peeling",
-          "Dampf Fußmaske",
-          "Nagellack/Klarlack",
-          "Nagelölpflege mit Moringa",
-          "Nagelpolitur",
-          "Abschlusspflege",
-          "erholsame Aromatherapie Massage 30 min"
+          "Klassische Fußpflege",
+          "Entspannendes Kräuterfußbad",
+          "Sanftes Dampfpeeling",
+          "Wohltuende Dampf-Fußmaske",
+          "Wahlweise Nagellack oder Klarlack",
+          "Intensive Nagelölpflege mit Moringa.",
+          "Professionelles Nagelpolieren",
+          "Pflegende Abschlusspflege",
+          "30 Minuten entspannende Aromatherapie-Fußmassage"
         ]
       }
     ]
   },
   {
-    title: "Shazay Head Spa Ritual",
+    title: "Shazey Head Spa Ritual",
+    description: "90 Minuten Premium-Erlebnis.\nDeine exklusive Auszeit für Kopf, Haar und Seele",
     icon: Droplets,
     items: [
-      { name: "Classic Head Spa (45 Min)" },
-      { name: "Premium Head Spa (60 Min)" },
-      { name: "Deluxe Head Spa (90 Min)" },
-    ]
-  },
-  {
-    title: "Kombi-Pakete",
-    icon: Gift,
-    items: [
-      { name: "Fußpflege + Head Spa Classic" },
-      { name: "Wellness Fußpflege + Head Spa Premium" },
+      {
+        name: "Tauche ein in ein einzigartiges Wellnesserlebnis und genieße die wohltuende Kombination aus entspannenden Ritualen, hochwertiger Haarpflege und unserem besonderen, diamantgefilterten Wasser",
+        details: [
+          "Exklusives Shazey Head Spa Ritual",
+          "Diamantgefiltertes Wasser für ein besonderes Wassererlebnis",
+          "Individuelle Kopfhaut- und Haarpflege",
+          "Wohltuende Wasseranwendungen",
+          "Entspannende Massageelemente",
+          "Hochwertige Pflegeprodukte",
+          "Eine Auszeit voller Ruhe und Entspannung",
+          "*Dauer: 90 Minuten",
+          "*Termine ausschließlich nach Vereinbarung."
+        ]
+      }
     ]
   },
   {

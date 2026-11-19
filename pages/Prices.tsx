@@ -6,6 +6,40 @@ import { PriceCategory } from '../types';
 import { ChevronDown, ChevronUp, Check, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const DetailListItem: React.FC<{ detail: string; delay: number }> = ({ detail, delay }) => {
+  if (detail.startsWith('*')) {
+    return (
+      <li className="text-xs text-stone-500 italic pt-1">
+        {detail}
+      </li>
+    );
+  }
+
+  return (
+    <li className="flex items-start gap-2.5 text-stone-600 hover:text-stone-900 transition-colors text-sm">
+      <motion.div
+        variants={{
+          rest: { scale: 1, y: 0 },
+          hover: { 
+            scale: [1, 1.2, 1], 
+            y: [0, -2, 0],
+            transition: { 
+              duration: 1.5, 
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay
+            } 
+          }
+        }}
+        className="mt-0.5 shrink-0"
+      >
+        <Check size={16} className="text-accent-500" />
+      </motion.div>
+      <span>{detail}</span>
+    </li>
+  );
+};
+
 const PriceCard: React.FC<{ category: PriceCategory; index: number }> = ({ category, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const disableExpand = category.disableExpand;
@@ -44,7 +78,7 @@ const PriceCard: React.FC<{ category: PriceCategory; index: number }> = ({ categ
           <h2 className="text-xl font-bold text-brand-900 tracking-tight leading-snug">{category.title}</h2>
         </div>
         {category.description && (
-          <p className="text-xs sm:text-sm text-brand-700 italic mt-0.5 line-clamp-2">{category.description}</p>
+          <p className="text-xs sm:text-sm text-brand-700 italic mt-0.5 line-clamp-2 whitespace-pre-line">{category.description}</p>
         )}
       </div>
 
@@ -67,27 +101,7 @@ const PriceCard: React.FC<{ category: PriceCategory; index: number }> = ({ categ
               {firstItemDetails.length > 0 && (
                 <ul className="mt-3 space-y-2">
                   {(isExpandable ? firstItemDetails.slice(0, 3) : firstItemDetails).map((detail, dIdx) => (
-                    <li key={dIdx} className="flex items-start gap-2.5 text-stone-600 hover:text-stone-900 transition-colors text-sm">
-                      <motion.div
-                        variants={{
-                          rest: { scale: 1, y: 0 },
-                          hover: { 
-                            scale: [1, 1.2, 1], 
-                            y: [0, -2, 0],
-                            transition: { 
-                              duration: 1.5, 
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: dIdx * 0.12
-                            } 
-                          }
-                        }}
-                        className="mt-0.5 shrink-0"
-                      >
-                        <Check size={16} className="text-accent-500" />
-                      </motion.div>
-                      <span>{detail}</span>
-                    </li>
+                    <DetailListItem key={dIdx} detail={detail} delay={dIdx * 0.12} />
                   ))}
                 </ul>
               )}
@@ -118,27 +132,7 @@ const PriceCard: React.FC<{ category: PriceCategory; index: number }> = ({ categ
               {item.details && item.details.length > 0 && (
                 <ul className="mt-3 space-y-2">
                   {item.details.map((detail, dIdx) => (
-                    <li key={dIdx} className="flex items-start gap-2.5 text-stone-600 hover:text-stone-900 transition-colors text-sm">
-                      <motion.div
-                        variants={{
-                          rest: { scale: 1, y: 0 },
-                          hover: { 
-                            scale: [1, 1.2, 1], 
-                            y: [0, -2, 0],
-                            transition: { 
-                              duration: 1.5, 
-                              repeat: Infinity,
-                              ease: "easeInOut",
-                              delay: dIdx * 0.12
-                            } 
-                          }
-                        }}
-                        className="mt-0.5 shrink-0"
-                      >
-                        <Check size={16} className="text-accent-500" />
-                      </motion.div>
-                      <span>{detail}</span>
-                    </li>
+                    <DetailListItem key={dIdx} detail={detail} delay={dIdx * 0.12} />
                   ))}
                 </ul>
               )}
@@ -161,27 +155,7 @@ const PriceCard: React.FC<{ category: PriceCategory; index: number }> = ({ categ
                   {firstItemExtraDetails.length > 0 && (
                     <ul className="space-y-2 border-b border-stone-100 pb-3">
                       {firstItemExtraDetails.map((detail, dIdx) => (
-                        <li key={dIdx + 3} className="flex items-start gap-2.5 text-stone-600 hover:text-stone-900 transition-colors text-sm">
-                          <motion.div
-                            variants={{
-                              rest: { scale: 1, y: 0 },
-                              hover: { 
-                                scale: [1, 1.2, 1], 
-                                y: [0, -2, 0],
-                                transition: { 
-                                  duration: 1.5, 
-                                  repeat: Infinity,
-                                  ease: "easeInOut",
-                                  delay: (dIdx + 3) * 0.1
-                                } 
-                              }
-                            }}
-                            className="mt-0.5 shrink-0"
-                          >
-                            <Check size={16} className="text-accent-500" />
-                          </motion.div>
-                          <span>{detail}</span>
-                        </li>
+                        <DetailListItem key={dIdx + 3} detail={detail} delay={(dIdx + 3) * 0.1} />
                       ))}
                     </ul>
                   )}
@@ -202,27 +176,7 @@ const PriceCard: React.FC<{ category: PriceCategory; index: number }> = ({ categ
                       {item.details && item.details.length > 0 && (
                         <ul className="mt-3 space-y-2">
                           {item.details.map((detail, dIdx) => (
-                            <li key={dIdx} className="flex items-start gap-2.5 text-stone-600 hover:text-stone-900 transition-colors text-sm">
-                              <motion.div
-                                variants={{
-                                  rest: { scale: 1, y: 0 },
-                                  hover: { 
-                                    scale: [1, 1.2, 1], 
-                                    y: [0, -2, 0],
-                                    transition: { 
-                                      duration: 1.5, 
-                                      repeat: Infinity,
-                                      ease: "easeInOut",
-                                      delay: dIdx * 0.1
-                                    } 
-                                  }
-                                }}
-                                className="mt-0.5 shrink-0"
-                              >
-                                <Check size={16} className="text-accent-500" />
-                              </motion.div>
-                              <span>{detail}</span>
-                            </li>
+                            <DetailListItem key={dIdx} detail={detail} delay={dIdx * 0.1} />
                           ))}
                         </ul>
                       )}
