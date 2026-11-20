@@ -59,7 +59,10 @@ const Home: React.FC = () => {
         })}
       />
       {/* Hero Section */}
-      <div className="relative min-h-[500px] md:min-h-[600px] h-[85svh] md:h-[80vh] flex items-center overflow-hidden">
+      <section
+        aria-label="Willkommen bei Schwesterherz"
+        className="relative min-h-[max(500px,85svh)] md:min-h-[max(600px,80dvh)] flex items-center overflow-hidden"
+      >
         {/* Background Slider */}
         {HERO_SLIDES.map((slide, index) => (
           <div 
@@ -82,11 +85,11 @@ const Home: React.FC = () => {
         <div className="absolute inset-0 z-0 bg-gradient-to-b md:bg-gradient-to-r from-brand-950/90 via-brand-950/70 to-brand-950/30 pointer-events-none"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-white w-full py-12 md:py-16 mt-12 md:mt-0">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-display font-bold leading-[1.1] mb-4 sm:mb-6">
+          <div className="max-w-2xl">
+            <h1 className="text-[clamp(1.625rem,1.2rem+2.1vw,2.75rem)] font-display font-bold leading-[1.15] text-balance mb-4 sm:mb-6">
               „Entdecken Sie neue Dimensionen der Entspannung"
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-brand-100 mb-6 sm:mb-8 leading-relaxed max-w-2xl">
+            <p className="text-[clamp(0.95rem,0.9rem+0.35vw,1.125rem)] text-brand-100 mb-6 sm:mb-7 leading-relaxed text-pretty max-w-xl">
               mit hochwertiger Fußpflege und unserem Shazay Head Spa Ritual, das Körper und Geist in Einklang bringt.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -94,13 +97,13 @@ const Home: React.FC = () => {
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer" 
-                className="bg-brand-300 hover:bg-brand-200 text-brand-950 text-base sm:text-lg font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-full transition-all shadow-lg hover:shadow-brand-300/25 flex items-center justify-center gap-2 w-full sm:w-auto"
+                className="bg-brand-300 hover:bg-brand-200 text-brand-950 text-sm sm:text-base font-semibold px-6 py-3 sm:px-7 sm:py-3.5 min-h-[44px] rounded-full transition-all shadow-lg hover:shadow-brand-300/25 flex items-center justify-center gap-2 w-full sm:w-auto"
               >
-                Jetzt Termin buchen <ArrowRight size={20} />
+                Jetzt Termin buchen <ArrowRight size={18} aria-hidden="true" />
               </a>
               <Link 
                 to="/leistungen" 
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white text-base sm:text-lg font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-full transition-all flex items-center justify-center w-full sm:w-auto"
+                className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm sm:text-base font-semibold px-6 py-3 sm:px-7 sm:py-3.5 min-h-[44px] rounded-full transition-all flex items-center justify-center w-full sm:w-auto"
               >
                 Unsere Leistungen
               </Link>
@@ -109,29 +112,35 @@ const Home: React.FC = () => {
         </div>
 
         {/* Slider Navigation Dots & Pause Control */}
-        <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center items-center gap-3">
+        <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 z-20 flex justify-center items-center gap-1">
           {HERO_SLIDES.map((_, index) => (
             <button
               key={index}
               type="button"
               onClick={() => setCurrentSlide(index)}
-              className={`h-2 rounded-full transition-all duration-300 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300 ${
-                index === currentSlide ? 'w-8 bg-brand-300' : 'w-2 bg-white/40 hover:bg-white/80'
-              }`}
+              className="min-w-[44px] min-h-[44px] sm:min-w-[32px] sm:min-h-[32px] flex items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300"
               aria-label={`Folie ${index + 1}`}
               aria-current={index === currentSlide ? 'true' : undefined}
-            />
+            >
+              <span
+                className={`block h-2 rounded-full transition-all duration-300 shadow-sm ${
+                  index === currentSlide ? 'w-8 bg-brand-300' : 'w-2 bg-white/40 hover:bg-white/80'
+                }`}
+              />
+            </button>
           ))}
           <button
             type="button"
             onClick={() => setIsPaused((prev) => !prev)}
             aria-label={isPaused ? 'Diashow fortsetzen' : 'Diashow pausieren'}
-            className="ml-2 p-1.5 rounded-full bg-brand-950/60 hover:bg-brand-950/90 text-white/90 border border-white/20 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300"
+            className="ml-1 min-w-[44px] min-h-[44px] sm:min-w-[32px] sm:min-h-[32px] flex items-center justify-center rounded-full text-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300"
           >
-            {isPaused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+            <span className="p-1.5 rounded-full bg-brand-950/60 hover:bg-brand-950/90 border border-white/20 transition-colors flex items-center justify-center">
+              {isPaused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
+            </span>
           </button>
         </div>
-      </div>
+      </section>
 
       {/* Intro Section */}
       <Section bg="white">
