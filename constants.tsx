@@ -23,6 +23,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Über uns", path: "/ueber-uns" },
   { label: "Leistungen", path: "/leistungen" },
   { label: "Pakete", path: "/preise" },
+  { label: "Gutscheine", path: "/gutscheine" },
   { label: "Galerie", path: "/galerie" },
   { label: "FAQ", path: "/faq" },
   { label: "Kontakt", path: "/kontakt" },
@@ -419,3 +420,39 @@ export const CONTACT_INFO = {
     { day: "Sa", time: "Nach Vereinbarung" }
   ]
 };
+
+export interface VoucherTreatment {
+  id: string;
+  title: string;
+  subtitle: string;
+}
+
+export const VOUCHER_TREATMENTS: VoucherTreatment[] = [
+  {
+    id: "head-spa",
+    title: "Shazay Head Spa Ritual",
+    subtitle: "90 Min. exklusive Auszeit für Kopf, Haar & Seele"
+  },
+  {
+    id: "vip-platinum",
+    title: "V.I.P. Platinum Fußpflege",
+    subtitle: "Kräuterfußbad, Dampfmaske & 30 Min. Aromamassage"
+  },
+  {
+    id: "wellness-fuss",
+    title: "Wellness-Fußpflege",
+    subtitle: "Pflegendes Spa-Ritual mit Aromatherapie-Massage"
+  },
+  {
+    id: "kosmetik",
+    title: "Kosmetik Behandlung",
+    subtitle: "Individuelle Gesichtspflege für strahlende Haut"
+  },
+  {
+    id: "maennerkosmetik",
+    title: "Männerkosmetik – Business Grooming",
+    subtitle: "Tiefenreinigung, Massage & wohltuende Pflege"
+  }
+];
+
+export const VOUCHER_AMOUNTS: string[] = ["30", "50", "75", "100", "150"];

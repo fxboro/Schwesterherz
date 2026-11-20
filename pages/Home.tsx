@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { CheckCircle, ArrowRight, Star, Pause, Play } from 'lucide-react';
+import { CheckCircle, ArrowRight, Star, Pause, Play, Gift, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
@@ -86,7 +86,7 @@ const Home: React.FC = () => {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 text-white w-full py-12 md:py-16 mt-12 md:mt-0">
           <div className="max-w-2xl">
-            <h1 className="text-[clamp(1.625rem,1.2rem+2.1vw,2.75rem)] font-display font-bold leading-[1.15] text-balance mb-4 sm:mb-6">
+            <h1 className="text-[clamp(1.9rem,1.35rem+2.2vw,3.15rem)] font-display font-semibold leading-[1.12] tracking-[-0.01em] text-balance mb-4 sm:mb-6">
               „Entdecken Sie neue Dimensionen der Entspannung"
             </h1>
             <p className="text-[clamp(0.95rem,0.9rem+0.35vw,1.125rem)] text-brand-100 mb-6 sm:mb-7 leading-relaxed text-pretty max-w-xl">
@@ -146,16 +146,19 @@ const Home: React.FC = () => {
       <Section bg="white">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-display font-bold text-brand-900 mb-6">
+            <span className="inline-block text-[0.7rem] uppercase tracking-[0.22em] text-brand-600 font-semibold mb-2.5">
+              Willkommen bei Schwesterherz
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-brand-900 mb-6 text-balance">
               Manchmal braucht es mehr als nur Pflege
             </h2>
-            <p className="text-stone-600 mb-4 leading-relaxed">
+            <p className="text-stone-600 mb-4 leading-relaxed text-pretty">
               — es braucht einen Ort, an dem Fachkompetenz auf echte Zuwendung trifft. In unserer Praxis verbinden wir medizinisch fundierte Fußpflege mit einem exklusiven Ambiente, das Ruhe und Vertrauen ausstrahlt. Jede Behandlung wird mit größter Sorgfalt, Präzision und Hingabe durchgeführt.
             </p>
-            <p className="text-stone-600 mb-8 leading-relaxed">
+            <p className="text-stone-600 mb-8 leading-relaxed text-pretty">
               Unser luxuriöses Shazay Head Spa Ritual schenkt Ihnen zusätzlich tiefe Entspannung und einen Moment, in dem Sie den Alltag vollkommen hinter sich lassen dürfen. Treten Sie ein, atmen Sie durch – und erleben Sie, wie sich Gesundheit und Wohlgefühl auf höchstem Niveau vereinen.
             </p>
-            <Link to="/ueber-uns" className="text-brand-900 font-bold hover:text-brand-700 flex items-center gap-2 decoration-brand-300 underline underline-offset-4 hover:decoration-brand-500">
+            <Link to="/ueber-uns" className="text-brand-900 font-semibold hover:text-brand-700 flex items-center gap-2 decoration-brand-300 underline underline-offset-4 hover:decoration-brand-500">
               Mehr über uns erfahren <ArrowRight size={18} />
             </Link>
           </div>
@@ -165,7 +168,7 @@ const Home: React.FC = () => {
                src="/images/Head_massage_01.png" 
                alt="Entspannende Atmosphäre im Head Spa" 
                loading="lazy"
-               className="rounded-2xl shadow-xl w-full object-cover" 
+               className="rounded-2xl luxury-card-shadow w-full object-cover" 
              />
           </div>
         </div>
@@ -174,24 +177,27 @@ const Home: React.FC = () => {
       {/* Services Highlight */}
       <Section bg="light">
         <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
-          <h2 className="text-2xl sm:text-3xl font-display font-bold text-brand-900 mb-4">Unsere Hauptleistungen</h2>
-          <div className="h-1 w-20 bg-brand-300 mx-auto rounded-full"></div>
+          <span className="inline-block text-[0.7rem] uppercase tracking-[0.22em] text-brand-600 font-semibold mb-2.5">
+            Kompetenz &amp; Entspannung
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-display font-semibold text-brand-900 mb-4">Unsere Hauptleistungen</h2>
+          <div className="h-0.5 w-16 bg-brand-400 mx-auto rounded-full"></div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {SERVICES.map((service) => (
-            <div key={service.id} className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow border border-brand-100 flex flex-col items-start relative overflow-hidden group">
+            <div key={service.id} className="bg-white p-8 rounded-2xl luxury-card-shadow hover:shadow-xl transition-shadow border border-brand-200/60 flex flex-col items-start relative overflow-hidden group">
               {service.isNew && (
-                <span className="absolute top-4 right-4 bg-brand-900 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                <span className="absolute top-4 right-4 bg-brand-900 text-white text-[0.65rem] font-semibold px-3 py-1 rounded-full uppercase tracking-[0.15em] shadow-sm">
                   Neu!
                 </span>
               )}
               <div className="w-14 h-14 bg-accent-50 text-accent-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 group-hover:bg-accent-100">
                 <service.icon size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-brand-900">{service.title}</h3>
-              <p className="text-stone-600 mb-6 flex-grow">{service.description}</p>
-              <Link to="/leistungen" className="text-brand-900 font-bold hover:text-brand-700 flex items-center gap-1 group-hover:gap-2 transition-all">
+              <h3 className="text-2xl font-display font-semibold mb-3 text-brand-900">{service.title}</h3>
+              <p className="text-stone-600 mb-6 flex-grow text-pretty leading-relaxed">{service.description}</p>
+              <Link to="/leistungen" className="text-brand-900 font-semibold hover:text-brand-700 flex items-center gap-1 group-hover:gap-2 transition-all">
                 Details ansehen <ArrowRight size={16} />
               </Link>
             </div>
@@ -213,7 +219,7 @@ const Home: React.FC = () => {
                  viewport={{ once: true, margin: "-50px" }}
                  transition={{ duration: 0.8, ease: "easeOut" }}
                  src="/images/Head_massage_bed_01.png" 
-                 className="rounded-2xl shadow-lg mt-8 border-4 border-white w-full h-auto object-cover" 
+                 className="rounded-2xl luxury-card-shadow mt-8 border-4 border-white w-full h-auto object-cover" 
                  alt="Head Spa Behandlung" 
                />
                <motion.img 
@@ -222,16 +228,19 @@ const Home: React.FC = () => {
                  viewport={{ once: true, margin: "-50px" }}
                  transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                  src="/images/Spa_01.png" 
-                 className="rounded-2xl shadow-lg mb-8 border-4 border-white w-full h-auto object-cover" 
+                 className="rounded-2xl luxury-card-shadow mb-8 border-4 border-white w-full h-auto object-cover" 
                  alt="Entspannende Atmosphäre" 
                />
              </div>
            </div>
            <div className="order-1 md:order-2">
-             <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-brand-900 mb-6">
+             <span className="inline-block text-[0.7rem] uppercase tracking-[0.22em] text-brand-600 font-semibold mb-2.5">
+               Exklusives Ritual
+             </span>
+             <h2 className="text-3xl sm:text-4xl font-display font-semibold text-brand-900 mb-6 text-balance">
                Neu: Shazay Head Spa Ritual
              </h2>
-             <p className="text-lg text-stone-600 mb-6">
+             <p className="text-lg text-stone-600 mb-6 text-pretty leading-relaxed">
                Erleben Sie eine Behandlung, die Körper und Geist beruhigt.
                Sanfte Massagen, warme Tücher, pflegende Essenzen und ein Gefühl von absoluter Leichtigkeit.
              </p>
@@ -258,7 +267,10 @@ const Home: React.FC = () => {
 
       {/* Testimonials */}
       <Section bg="light">
-        <h2 className="text-center text-2xl sm:text-3xl font-display font-bold mb-10 md:mb-14 text-brand-900">Kundenstimmen</h2>
+        <span className="block text-center text-[0.7rem] uppercase tracking-[0.22em] text-brand-600 font-semibold mb-2.5">
+          Vertrauen
+        </span>
+        <h2 className="text-center text-3xl sm:text-4xl font-display font-semibold mb-10 md:mb-14 text-brand-900">Kundenstimmen</h2>
         <div className="grid md:grid-cols-3 gap-8">
           {TESTIMONIALS.map((t, index) => (
             <motion.div 
@@ -268,23 +280,87 @@ const Home: React.FC = () => {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className="bg-white p-8 rounded-2xl shadow-sm relative border border-brand-100 hover:shadow-md transition-shadow"
+              className="bg-white p-8 rounded-2xl luxury-card-shadow relative border border-brand-200/60 hover:shadow-xl transition-shadow flex flex-col justify-between"
             >
-              <div className="text-brand-300 flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
+              <div>
+                <div className="text-brand-400 flex gap-1 mb-5">
+                  {[...Array(5)].map((_, i) => <Star key={i} size={15} fill="currentColor" />)}
+                </div>
+                <p className="font-display italic text-xl leading-relaxed text-brand-900 mb-6 text-pretty">„{t.text}“</p>
               </div>
-              <p className="text-stone-600 italic mb-6">"{t.text}"</p>
-              <div className="font-bold text-brand-900">— {t.author}</div>
+              <div className="text-xs uppercase tracking-[0.16em] font-semibold text-brand-700">— {t.author}</div>
             </motion.div>
           ))}
+        </div>
+      </Section>
+
+      {/* Quiet Luxury Voucher Teaser Section */}
+      <Section bg="white">
+        <div className="grid md:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="md:col-span-6 flex justify-center">
+            <div className="w-full max-w-md md:-rotate-2 hover:rotate-0 transition-transform duration-500">
+              <div className="voucher-card-champagne border border-brand-300/70 rounded-2xl luxury-card-shadow relative overflow-hidden p-7 sm:p-8 text-brand-950 min-h-[240px] flex flex-col justify-between">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-3 rounded-xl border border-brand-900/15"
+                />
+                <div className="relative z-10 flex items-start justify-between gap-3">
+                  <div>
+                    <p className="font-display font-semibold text-2xl leading-none">Schwesterherz</p>
+                    <p className="text-[0.55rem] uppercase tracking-[0.18em] text-brand-700 mt-1">
+                      Deine Oase für Schönheit &amp; Entspannung
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-[0.6rem] font-semibold uppercase tracking-[0.16em] px-2.5 py-1 rounded-full bg-brand-900/10 text-brand-900 border border-brand-900/15">
+                    <Sparkles size={11} aria-hidden="true" />
+                    Gutschein
+                  </span>
+                </div>
+
+                <div className="relative z-10 my-5">
+                  <span className="block text-[0.65rem] uppercase tracking-[0.2em] font-semibold text-brand-700">
+                    Verwöhnerlebnis
+                  </span>
+                  <p className="font-display font-semibold text-2xl sm:text-[1.75rem] leading-tight mt-0.5">
+                    Shazay Head Spa Ritual
+                  </p>
+                </div>
+
+                <div className="relative z-10 pt-3.5 border-t border-brand-900/15 flex items-center justify-between text-xs text-brand-800">
+                  <span className="font-display italic text-base">„Eine Auszeit von Herzen“</span>
+                  <span className="text-[0.7rem] text-brand-700">3 Jahre gültig</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="md:col-span-6">
+            <span className="inline-block text-[0.7rem] uppercase tracking-[0.22em] text-brand-600 font-semibold mb-2.5">
+              Perfekt für jeden Anlass
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-brand-900 mb-5 text-balance">
+              Zeit für Entspannung verschenken
+            </h2>
+            <p className="text-stone-600 mb-6 leading-relaxed text-pretty">
+              Ob zum Geburtstag, als kleines Dankeschön oder einfach für einen lieben Menschen: Gestalte deinen individuellen Schwesterherz-Geschenkgutschein mit persönlicher Widmung – als edle Karte im Studio oder digital per PDF.
+            </p>
+            <Link
+              to="/gutscheine"
+              className="inline-flex items-center justify-center gap-2.5 bg-brand-900 hover:bg-brand-800 text-white font-semibold px-7 py-3.5 min-h-[48px] rounded-full shadow-md hover:shadow-lg transition-all w-full sm:w-auto"
+            >
+              <Gift size={18} aria-hidden="true" />
+              Gutschein gestalten
+              <ArrowRight size={17} aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </Section>
 
       {/* CTA Footer - Primary Brand Color Block */}
       <section className="bg-brand-300 py-16 md:py-24 text-brand-950 text-center">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">Gönnen Sie sich eine Auszeit.</h2>
-          <p className="text-brand-900 text-xl mb-8 opacity-80">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-semibold mb-6 text-balance">Gönnen Sie sich eine Auszeit.</h2>
+          <p className="text-brand-900 text-lg sm:text-xl mb-8 opacity-85 text-pretty">
             Jetzt Termin vereinbaren – telefonisch, per WhatsApp oder über unser Kontaktformular.
           </p>
           <a 

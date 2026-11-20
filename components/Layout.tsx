@@ -70,23 +70,25 @@ const Layout: React.FC = () => {
       {/* Navigation */}
       <nav 
         className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled ? 'bg-white shadow-md py-2' : 'bg-white/95 backdrop-blur-md py-3'
+          scrolled
+            ? 'bg-[#FBF9F8]/95 backdrop-blur-xl shadow-md border-b border-brand-200/60 py-2'
+            : 'bg-[#FBF9F8]/90 backdrop-blur-xl border-b border-brand-200/50 py-3'
         }`}
         aria-label="Hauptnavigation"
       >
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-between items-center">
           {/* Logo Brand */}
-          <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="flex flex-col mr-8 group shrink-0 min-w-0">
-            <span className="text-2xl sm:text-3xl font-display font-bold text-brand-900 tracking-wide leading-none">
+          <NavLink to="/" onClick={() => setIsMenuOpen(false)} className="flex flex-col mr-4 xl:mr-8 group shrink-0 min-w-0">
+            <span className="text-[1.65rem] sm:text-[2rem] font-display font-semibold text-brand-900 tracking-wide leading-none">
               Schwesterherz
             </span>
-            <span className="text-[10px] sm:text-[11px] text-brand-500 font-medium tracking-widest uppercase mt-0.5 group-hover:text-brand-700 transition-colors truncate">
+            <span className="text-[0.55rem] sm:text-[0.6rem] text-brand-500/85 font-normal tracking-wider uppercase mt-0.5 group-hover:text-brand-700 transition-colors truncate">
               Deine Oase für Schönheit & Entspannung
             </span>
           </NavLink>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex gap-6 xl:gap-8 items-center">
+          <div className="hidden lg:flex gap-4 xl:gap-7 items-center">
             {NAV_ITEMS.map((item) => (
               <NavLink
                 key={item.path}
@@ -182,7 +184,7 @@ const Layout: React.FC = () => {
           <div>
             <div className="mb-6">
               <h3 className="text-2xl font-display font-bold text-brand-300 leading-tight">Schwesterherz</h3>
-              <p className="text-xs text-brand-400 font-medium tracking-wider mt-1">Deine Oase für Schönheit & Entspannung</p>
+              <p className="text-[0.65rem] sm:text-[0.7rem] text-brand-400/90 font-normal tracking-wide mt-0.5">Deine Oase für Schönheit & Entspannung</p>
             </div>
             <p className="mb-6 text-brand-200/90 text-sm leading-relaxed text-pretty [text-wrap:pretty]">
               Dein Wohlfühlstudio für professionelle Fußpflege, Kosmetik und exklusive Wellnessbehandlungen in Neunkirchen-Seelscheid. Wir verbinden Schönheit, Pflege und Entspannung in einer persönlichen Wohlfühlatmosphäre.
@@ -267,6 +269,7 @@ const Layout: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 md:px-8 mt-12 pt-8 border-t border-brand-900 text-center text-xs text-brand-500/60 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-6">
           <span>© {new Date().getFullYear()} Schwesterherz. Alle Rechte vorbehalten.</span>
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+             <Link to="/gutscheine" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Gutscheine</Link>
              <Link to="/kunden-erfassungsbogen" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Kunden-Erfassungsbogen</Link>
              <Link to="/impressum" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Impressum</Link>
              <Link to="/datenschutz" className="text-brand-300/80 hover:text-white transition-all duration-300 hover:underline decoration-accent-500 underline-offset-4 font-medium tracking-wide">Datenschutz</Link>

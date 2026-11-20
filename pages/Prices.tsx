@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
 import { PRICES, BOOKING_URL } from '../constants';
 import { PriceCategory } from '../types';
-import { ChevronDown, ChevronUp, Check, Clock } from 'lucide-react';
+import { ChevronDown, ChevronUp, Check, Clock, Gift, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const DetailListItem: React.FC<{ detail: string; delay: number }> = ({ detail, delay }) => {
@@ -238,11 +239,18 @@ const Prices: React.FC = () => {
         description="Übersicht unserer Pflegepakete und Preise für medizinische Fußpflege, Kosmetik Behandlungen, Männer-Grooming, Wellness und das Shazay Head Spa Ritual."
       />
 
-      {/* Page Header — consistent with other pages */}
-      <div className="bg-brand-50 py-10 md:py-14">
+      {/* Page Header — consistent Quiet Luxury editorial styling */}
+      <div className="luxury-surface py-12 md:py-16 border-b border-brand-200/50">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-display font-bold text-brand-900 mb-4">Pakete</h1>
-          <p className="text-stone-600">Unsere Behandlungspakete im Überblick.</p>
+          <span className="inline-block text-[0.7rem] uppercase tracking-[0.22em] font-semibold text-brand-600 mb-3">
+            Behandlungsmenü
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-display font-semibold text-brand-900 mb-4 text-balance">
+            Pakete
+          </h1>
+          <p className="text-stone-600 max-w-xl mx-auto text-pretty">
+            Unsere Behandlungspakete im Überblick.
+          </p>
         </div>
       </div>
 
@@ -253,7 +261,30 @@ const Prices: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        {/* Quiet Luxury Voucher Callout Strip */}
+        <div className="mt-14 max-w-4xl mx-auto voucher-card-champagne border border-brand-300/70 rounded-2xl p-6 sm:p-8 luxury-card-shadow flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <span className="inline-block text-[0.7rem] uppercase tracking-[0.2em] font-semibold text-brand-700 mb-1.5">
+              Besondere Geschenkidee
+            </span>
+            <h2 className="text-2xl font-display font-semibold text-brand-950 mb-1">
+              Jede Behandlung auch als Gutschein erhältlich
+            </h2>
+            <p className="text-sm text-brand-800 text-pretty">
+              Wähle dein Wunschpaket, füge eine persönliche Widmung hinzu und verschenke echte Entspannung.
+            </p>
+          </div>
+          <Link
+            to="/gutscheine"
+            className="shrink-0 inline-flex items-center justify-center gap-2 bg-brand-900 hover:bg-brand-800 text-white font-semibold text-sm px-6 py-3 min-h-[48px] rounded-full shadow-md transition-colors w-full sm:w-auto"
+          >
+            <Gift size={16} aria-hidden="true" />
+            Als Geschenkgutschein gestalten
+            <ArrowRight size={15} aria-hidden="true" />
+          </Link>
+        </div>
+
+        <div className="mt-14 text-center">
           <p className="text-stone-500 mb-6 max-w-2xl mx-auto text-sm">
             Bitte informieren Sie uns bei der Terminvereinbarung über spezielle Anforderungen.
           </p>

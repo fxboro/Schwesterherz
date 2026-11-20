@@ -12,6 +12,7 @@ import Datenschutz from './pages/Datenschutz';
 import Impressum from './pages/Impressum';
 import Gallery from './pages/Gallery';
 import KundenErfassungsbogen from './pages/KundenErfassungsbogen';
+import Vouchers from './pages/Vouchers';
 
 declare global {
   interface Window {
@@ -51,6 +52,7 @@ const App: React.FC = () => {
             <Route path="ueber-uns" element={<About />} />
             <Route path="leistungen" element={<Services />} />
             <Route path="preise" element={<Prices />} />
+            <Route path="gutscheine" element={<Vouchers />} />
             <Route path="faq" element={<FAQ />} />
             <Route path="kontakt" element={<Contact />} />
             <Route path="datenschutz" element={<Datenschutz />} />

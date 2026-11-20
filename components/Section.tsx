@@ -10,12 +10,12 @@ interface SectionProps {
 const Section: React.FC<SectionProps> = ({ children, className = '', bg = 'white', id }) => {
   const bgColors = {
     white: 'bg-white',
-    light: 'bg-brand-50/50',
+    light: 'luxury-surface',
     dark: 'bg-stone-100',
   };
 
   return (
-    <section id={id} className={`py-16 md:py-24 ${bgColors[bg]} ${className}`}>
+    <section id={id} className={`py-16 md:py-24 lg:py-28 ${bgColors[bg]} ${className}`}>
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {children}
       </div>
