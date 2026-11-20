@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
 const SYSTEM_PROMPT = `
 Du bist der KI-Kundenservice-Assistent für "Schwesterherz - Deine Oase für Schönheit und Entspannung".
@@ -37,56 +37,35 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
-export const handler = async (event: any, context: any) => {
+export default async (req: Request): Promise<Response> => {
   // Handle CORS preflight
-  if (event.httpMethod === "OPTIONS") {
-    return { statusCode: 204, headers: CORS_HEADERS, body: "" };
+  if (req.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: CORS_HEADERS });
   }
 
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, headers: CORS_HEADERS, body: "Method Not Allowed" };
-  }
-
-  // Read API key inside handler to ensure env vars are available at request time
-  const apiKey = process.env.GEMINI_API_KEY;
-
-  if (!apiKey) {
-    console.error("GEMINI_API_KEY is not set. Available env keys:", Object.keys(process.env).filter(k => k.includes("GEMINI") || k.includes("API")));
-    return {
-      statusCode: 500,
-      headers: CORS_HEADERS,
-      body: JSON.stringify({ error: "Gemini API key is missing." }),
-    };
+  if (req.method !== "POST") {
+    return new Response("Method Not Allowed", { status: 405, headers: CORS_HEADERS });
   }
 
   try {
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const body = JSON.parse(event.body);
-    const { history, message } = body; // history is an array of { role: 'user' | 'model', parts: [{ text: string }] }
+    const genAI = new GoogleGenAI({});
+    const { history, message } = await req.json();
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
-      systemInstruction: SYSTEM_PROMPT,
-    });
-
-    const chat = model.startChat({
+    const chat = genAI.chats.create({
+      model: "gemini-3-flash-preview",
+      config: { systemInstruction: SYSTEM_PROMPT },
       history: history || [],
     });
 
-    const result = await chat.sendMessage(message);
-    const responseText = result.response.text();
+    const result = await chat.sendMessage({ message });
 
-    return {
-      statusCode: 200,
-      headers: CORS_HEADERS,
-      body: JSON.stringify({ text: responseText }),
-    };
-  } catch (error) {
-    console.error("Error with Gemini API:", error);
-    return {
-      statusCode: 500,
-      headers: CORS_HEADERS,
-      body: JSON.stringify({ error: "Failed to generate response." }),
-    };
+    return Response.json({ text: result.text }, { headers: CORS_HEADERS });
+  } catch {
+    // Avoid logging SDK errors that may contain gateway credentials.
+    console.error("Error with Gemini API");
+    return Response.json(
+      { error: "Failed to generate response." },
+      { status: 500, headers: CORS_HEADERS },
+    );
   }
 };
