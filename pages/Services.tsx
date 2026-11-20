@@ -53,7 +53,7 @@ const Services: React.FC = () => {
     <>
       <SEO 
         title="Leistungen" 
-        description="Entdecken Sie unsere Leistungen: Fußpflege nach medizinischer Art, Wellness-Fußpflege, Shazay Head Spa Ritual, Kosmetik Behandlungen und Waxing."
+        description="Entdecken Sie unsere Leistungen: Professionelle Fußpflege & Wohlfühlpflege, Wellness-Fußpflege, Shazay Head Spa Ritual, Kosmetik Behandlungen und Waxing."
       />
       <div className="bg-brand-50 py-8 md:py-10">
         <div className="max-w-7xl mx-auto px-4 text-center">

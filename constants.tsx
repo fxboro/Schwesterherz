@@ -31,7 +31,7 @@ export const NAV_ITEMS: NavItem[] = [
 export const SERVICES: ServiceItem[] = [
   {
     id: "med-fuss",
-    title: "Fußpflege nach medizinischer Art",
+    title: "Professionelle Fußpflege & Wohlfühlpflege",
     description: "Behandlung von Problemnägeln, Hühneraugen, eingewachsenen Nägeln, Hornhaut & mehr.",
     icon: Stethoscope,
     details: [
