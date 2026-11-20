@@ -182,11 +182,10 @@ const Layout: React.FC = () => {
           <div>
             <div className="mb-6">
               <h3 className="text-2xl font-display font-bold text-brand-300 leading-tight">Schwesterherz</h3>
-              <p className="text-[10px] text-brand-400 uppercase tracking-widest mt-1">Deine Oase für Schönheit & Entspannung</p>
+              <p className="text-xs text-brand-400 font-medium tracking-wider mt-1">Deine Oase für Schönheit & Entspannung</p>
             </div>
-            <p className="mb-6 text-brand-200/80 text-sm leading-relaxed">
-              Ihre Praxis für Fußgesundheit & Wohlbefinden in Neunkirchen-Seelscheid. 
-              Wir verbinden medizinische Kompetenz mit purer Entspannung.
+            <p className="mb-6 text-brand-200/90 text-sm leading-relaxed text-pretty [text-wrap:pretty]">
+              Dein Wohlfühlstudio für professionelle Fußpflege, Kosmetik und exklusive Wellnessbehandlungen in Neunkirchen-Seelscheid. Wir verbinden Schönheit, Pflege und Entspannung in einer persönlichen Wohlfühlatmosphäre.
             </p>
             <div className="flex gap-4">
                <a href="https://www.instagram.com/schwesterherzfusspflege?igsh=MTI1MjA5N25iMHVlbg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full flex items-center justify-center border border-brand-800 text-brand-400 hover:text-brand-950 hover:bg-brand-300 hover:border-brand-300 hover:scale-110 transition-all duration-300 group">

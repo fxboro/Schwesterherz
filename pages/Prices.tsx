@@ -78,7 +78,7 @@ const PriceCard: React.FC<{ category: PriceCategory; index: number }> = ({ categ
           <h2 className="text-xl font-bold text-brand-900 tracking-tight leading-snug">{category.title}</h2>
         </div>
         {category.description && (
-          <p className="text-xs sm:text-sm text-brand-700 italic mt-0.5 line-clamp-2 whitespace-pre-line">{category.description}</p>
+          <p className="text-xs sm:text-sm text-brand-700 italic mt-0.5 line-clamp-3 whitespace-pre-line">{category.description}</p>
         )}
       </div>
 
@@ -187,6 +187,14 @@ const PriceCard: React.FC<{ category: PriceCategory; index: number }> = ({ categ
             </AnimatePresence>
           )}
         </div>
+
+        {/* Category Note */}
+        {category.note && (
+          <div className="mb-4 p-3.5 bg-brand-50/70 border border-brand-200/60 rounded-xl text-xs text-stone-600 leading-relaxed whitespace-pre-line">
+            <span className="font-semibold text-brand-900 block mb-1">Terminvereinbarung:</span>
+            {category.note}
+          </div>
+        )}
 
         {/* Card Footer: Expand Toggle & Quick Booking */}
         <div className="mt-auto pt-4 border-t border-stone-100 flex items-center justify-between gap-2">

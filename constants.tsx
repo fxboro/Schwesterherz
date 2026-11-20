@@ -232,49 +232,46 @@ export const PRICES: PriceCategory[] = [
   },
   {
     title: "Waxing",
-    description: "Waxing ist eine Methode der Haarentfernung, bei der Körperhaare mithilfe von warmem oder kaltem Wachs samt Haarwurzel aus der Haut entfernt werden.",
+    description: "Glatte Haut, gepflegtes Gefühl",
     icon: Sparkles,
     items: [
       {
         name: "For the Ladies",
-        description: "Waxing & Relaxation Body",
         details: [
           "Gesicht",
           "Beine",
-          "Füße mit Zehen",
-          "Finalmassage 15 min."
+          "Füße und Zehen",
+          "Abschließende Entspannungsmassage (15 Min.)"
         ]
       },
       {
         name: "Waxing & Relaxation Bikini",
         details: [
-          "Bikini Line oder",
-          "Bikini Cut/American Style oder",
-          "Landing Strip/French Style oder",
-          "Brazilian mit Muster oder",
-          "Full Brazilian/Hollywood Style",
-          "mit Pofalte",
-          "Abschlussmassage 15 min."
+          "Bikini Line – klassische Bikinizone",
+          "American Style – erweiterte Bikinizone",
+          "French Style – mit schmalem Streifen",
+          "Brazilian Style – vollständige Haarentfernung mit optionalem Muster",
+          "Hollywood Style – vollständige Haarentfernung",
+          "Pflege mit wohltuendem Puder",
+          "Abschließende Entspannungsmassage (15 Min.)"
         ]
       },
       {
         name: "For the Gents",
-        description: "Waxing & Relaxation Body",
         details: [
           "Gesicht",
           "Rücken",
           "Brust",
           "Arme",
-          "Finalmassage 15 min."
+          "Abschließende Entspannungsmassage (15 Min.)"
         ]
       },
       {
         name: "Waxing & Relaxation Beine",
         details: [
-          "Beine komplett",
-          "Oberschenkel & Unterschenkel",
-          "Füße mit Zehen",
-          "Abschlussmassage 15 min"
+          "Beine komplett, Oberschenkel oder Unterschenkel",
+          "Füße und Zehen",
+          "Abschließende Entspannungsmassage (15 Min.)"
         ]
       }
     ]
@@ -282,67 +279,70 @@ export const PRICES: PriceCategory[] = [
   {
     title: "Kosmetik Behandlungen",
     icon: Flower2,
-    description: "Exklusive Gesichtsbehandlungen für Vitalität, Frische und Tiefenentspannung.",
+    description: "Exklusive Gesichtsbehandlungen für strahlende Haut, neue Frische und wohltuende Entspannung.",
     items: [
       {
-        name: "Glow Relax (Basis Behandlung)",
+        name: "Glow Relax – Basisbehandlung",
         details: [
-          "Reinigung",
-          "Peeling",
-          "Bedampfen",
-          "Maske",
-          "Abschlusspflege"
+          "Gründliche Gesichtsreinigung",
+          "Sanftes Peeling",
+          "Bedampfen der Haut",
+          "Verwöhnende Gesichtsmaske",
+          "Abschließende Pflege"
         ]
       },
       {
-        name: "Beauty Balance (Intensivbehandlung)",
-        description: "Dauer: 75 min",
+        name: "Beauty Balance – Intensivbehandlung (75 Min.)",
         details: [
-          "Reinigung",
+          "Gründliche Gesichtsreinigung",
           "Peeling",
           "Bedampfen",
-          "Maske",
+          "Individuell abgestimmte Gesichtsmaske",
           "Augenbrauen zupfen und färben",
-          "Wimpernfärben",
+          "Wimpern färben",
           "Serum",
-          "Toner, Gesichtsmassage und Abschlusspflege"
+          "Gesichtstoner",
+          "Gesichts- und Dekolletémassage",
+          "Vliesmaske und Abschlusspflege"
         ]
       },
       {
-        name: "Timeless Beauty (Anti Ageing Treatment)",
-        description: "Dauer: 80 min",
+        name: "Timeless Beauty – Anti-Aging-Behandlung (80 Min.)",
         details: [
-          "Reinigung",
+          "Gründliche Gesichtsreinigung",
           "Peeling",
           "Bedampfen",
-          "Maske",
+          "Verwöhnende Gesichtsmaske",
           "Augenbrauen zupfen und färben",
-          "Wimpernfärben",
-          "Serum Hyaluronsäure",
-          "Toner",
+          "Wimpern färben",
+          "Hyaluronsäure-Serum",
+          "Gesichtstoner",
           "Gesichts- und Dekolletémassage",
-          "Villes-Maske und Abschlusspflege"
+          "Vliesmaske und Abschlusspflege"
         ]
       },
       {
-        name: "Wellnessextra",
+        name: "Wellness-Extra",
         details: [
-          "Fuß- und Handmassage: 30 €"
+          "Fuß- und Handmassage (30 €)"
         ]
       }
     ]
   },
   {
-    title: "Psst! Männersache",
+    title: "Männerkosmetik",
     icon: User,
-    description: "Gezielte Frische und Tiefenreinigung für den anspruchsvollen Mann.",
+    description: "Psst! Männersache.\nPflege, Frische und Entspannung – eine Auszeit für den modernen Mann.",
+    note: "Alle Kosmetikbehandlungen finden nach vorheriger Terminvereinbarung statt.\nBuche deinen persönlichen Verwöhntermin ganz einfach telefonisch oder per WhatsApp. Wir freuen uns auf dich! ❤️",
     items: [
       {
-        name: "Männersache! Business-Grooming",
+        name: "Männersache – Business Grooming",
         details: [
-          "Cleanse Tiefenreinigung & Enzympeeling",
+          "Gründliche Gesichtsreinigung",
+          "Enzympeeling",
           "Vitalisierende Gesichts- und Kopfhautmassage",
-          "Hydratisierende Tuchmaske und Augenpflege",
+          "Feuchtigkeitsspendende Tuchmaske",
+          "Wohltuende Augenpflege",
           "Mattierende Abschlusspflege"
         ]
       }

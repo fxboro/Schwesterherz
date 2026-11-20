@@ -26,6 +26,7 @@ export interface PriceCategory {
   items: PriceItem[];
   icon?: LucideIcon;
   disableExpand?: boolean;
+  note?: string;
 }
 
 export interface Testimonial {

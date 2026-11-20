@@ -3,13 +3,20 @@ import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import Section from '../components/Section';
 import SEO from '../components/SEO';
 
-const galleryImages = [
+interface GalleryItem {
+  src: string;
+  category: string;
+  caption: string;
+  objectPosition?: string;
+}
+
+const galleryImages: GalleryItem[] = [
   { src: '/images/Foot_care_01.png', category: 'Behandlung', caption: 'Fußpflege nach medizinischer Art' },
-  { src: '/images/Head_massage_01.png', category: 'Head Spa', caption: 'Shazay Head Spa Massage' },
-  { src: '/images/Spa_01.png', category: 'Wellness', caption: 'Entspannende Spa Atmosphäre' },
+  { src: '/images/schwesterherz_studio_8.jpg', category: 'Head Spa', caption: 'Shazay Head Spa Massage' },
+  { src: '/images/schwesterherz_studio_5.jpg', category: 'Wellness', caption: 'Entspannende Spa Atmosphäre' },
   { src: '/images/Head_massage_bed_01.png', category: 'Head Spa', caption: 'Head Spa Behandlungsraum' },
   { src: '/images/Foot_care_02.png', category: 'Behandlung', caption: 'Professionelle Fußpflege' },
-  { src: '/images/nenette_image_01.png', category: 'Team', caption: 'Unser Team bei der Arbeit' },
+  { src: '/images/schwesterherz_founders_1.jpg', category: 'Team', caption: 'Unser Team bei der Arbeit', objectPosition: 'top' },
 ];
 
 const Gallery: React.FC = () => {
@@ -85,8 +92,8 @@ const Gallery: React.FC = () => {
 
   return (
     <>
-      <SEO 
-        title="Galerie" 
+      <SEO
+        title="Galerie"
         description="Einblicke in unsere Praxis Schwesterherz in Neunkirchen-Seelscheid. Sehen Sie Impressionen unserer Fußpflege und unseres Head Spas."
       />
       <div className="bg-brand-50 py-10 md:py-14">
@@ -101,14 +108,14 @@ const Gallery: React.FC = () => {
         <div className="mb-16 md:mb-20">
           <h2 className="text-2xl font-bold text-center mb-8 text-brand-900">Vorher / Nachher</h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-             <div className="relative group overflow-hidden rounded-2xl shadow-lg">
-                <img src="/images/Foot_care_03.png" alt="Fußpflege vorher" className="w-full h-64 sm:h-80 object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
-                <div className="absolute top-4 left-4 bg-stone-800/80 text-white px-3 py-1 rounded-md text-sm font-bold">Vorher</div>
-             </div>
-             <div className="relative group overflow-hidden rounded-2xl shadow-lg">
-                <img src="/images/Foot_care_01.png" alt="Gepflegte Füße nachher" className="w-full h-64 sm:h-80 object-cover" />
-                <div className="absolute top-4 left-4 bg-accent-600/90 text-white px-3 py-1 rounded-md text-sm font-bold shadow-sm">Nachher</div>
-             </div>
+            <div className="relative group overflow-hidden rounded-2xl shadow-lg">
+              <img src="/images/Foot_care_03.png" alt="Fußpflege vorher" className="w-full h-64 sm:h-80 object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+              <div className="absolute top-4 left-4 bg-stone-800/80 text-white px-3 py-1 rounded-md text-sm font-bold">Vorher</div>
+            </div>
+            <div className="relative group overflow-hidden rounded-2xl shadow-lg">
+              <img src="/images/Foot_care_01.png" alt="Gepflegte Füße nachher" className="w-full h-64 sm:h-80 object-cover" />
+              <div className="absolute top-4 left-4 bg-accent-600/90 text-white px-3 py-1 rounded-md text-sm font-bold shadow-sm">Nachher</div>
+            </div>
           </div>
           <p className="text-center text-stone-500 text-sm mt-4">Beispielhafte Darstellung. Ergebnisse können variieren.</p>
         </div>
@@ -123,10 +130,11 @@ const Gallery: React.FC = () => {
               aria-label={`${img.caption} vergrößern`}
               className="group relative rounded-xl overflow-hidden shadow-sm aspect-[4/3] cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
             >
-              <img 
-                src={img.src} 
+              <img
+                src={img.src}
                 alt={img.caption}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${img.objectPosition === 'top' ? 'object-top' : 'object-center'}`}
+                style={img.objectPosition ? { objectPosition: img.objectPosition } : undefined}
                 loading="lazy"
                 decoding="async"
               />

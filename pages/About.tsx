@@ -120,7 +120,7 @@ const About: React.FC = () => {
           >
             <div className="w-40 h-40 mb-6 flex-shrink-0 rounded-full border-4 border-brand-200 shadow-lg overflow-hidden">
                <img 
-                 src="/images/nenette_image_01.png" 
+                 src="/images/nenette_profile_1.jpg" 
                  alt="Nenette — Inhaberin & medizinische Fusspflegerin" 
                  className="w-full h-full object-cover"
                />
