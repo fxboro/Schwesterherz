@@ -97,13 +97,13 @@ const Home: React.FC = () => {
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer" 
-                className="bg-brand-300 hover:bg-brand-200 text-brand-950 text-sm sm:text-base font-semibold px-6 py-3 sm:px-7 sm:py-3.5 min-h-[44px] rounded-full transition-all shadow-lg hover:shadow-brand-300/25 flex items-center justify-center gap-2 w-full sm:w-auto"
+                className="bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/40 text-white sm:bg-brand-300 sm:hover:bg-brand-200 sm:backdrop-blur-none sm:border-transparent sm:text-brand-950 text-sm sm:text-base font-semibold px-6 py-3 sm:px-7 sm:py-3.5 min-h-[44px] rounded-full transition-all shadow-lg hover:shadow-brand-300/25 flex items-center justify-center gap-2 w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300"
               >
                 Jetzt Termin buchen <ArrowRight size={18} aria-hidden="true" />
               </a>
               <Link 
                 to="/leistungen" 
-                className="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm sm:text-base font-semibold px-6 py-3 sm:px-7 sm:py-3.5 min-h-[44px] rounded-full transition-all flex items-center justify-center w-full sm:w-auto"
+                className="hidden sm:flex bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm sm:text-base font-semibold px-6 py-3 sm:px-7 sm:py-3.5 min-h-[44px] rounded-full transition-all items-center justify-center w-full sm:w-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-300"
               >
                 Unsere Leistungen
               </Link>

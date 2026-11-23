@@ -20,10 +20,13 @@ export const BOOKING_URL = "https://terminpanda.de/anbieter/SchwesterherzDeineOa
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Start", path: "/" },
-  { label: "Über uns", path: "/ueber-uns" },
   { label: "Leistungen", path: "/leistungen" },
   { label: "Pakete", path: "/preise" },
   { label: "Gutscheine", path: "/gutscheine" },
+];
+
+export const FOOTER_NAV_ITEMS: NavItem[] = [
+  { label: "Über uns", path: "/ueber-uns" },
   { label: "Galerie", path: "/galerie" },
   { label: "FAQ", path: "/faq" },
   { label: "Kontakt", path: "/kontakt" },
