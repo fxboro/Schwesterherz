@@ -63,14 +63,14 @@ export const SERVICES: ServiceItem[] = [
   {
     id: "headspa",
     title: "Shazay Head Spa Ritual",
-    description: "Ein luxuriöses Kopfhaut-Spa mit Massage, Reinigung, Detox und Tiefenentspannung.",
+    description: "Erleben Sie eine Behandlung, die Körper und Geist beruhigt. Sanfte Massagen, diamantgefiltertes Wasser, pflegende Essenzen und ein Gefühl von absoluter Leichtigkeit.",
     icon: Droplets,
     isNew: true,
     details: [
       "Tiefenreinigung & Detox",
       "Entspannende Kopf-, Nacken- & Schultermassage",
       "Pflegende Essenzen",
-      "Optional: Haarpflege & Styling"
+      "Diamantgefiltertes Wasser"
     ]
   }
 ];
