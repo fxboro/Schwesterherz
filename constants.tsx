@@ -67,9 +67,7 @@ export const SERVICES: ServiceItem[] = [
     icon: Droplets,
     isNew: true,
     details: [
-      "Kopfhautdiagnose",
       "Tiefenreinigung & Detox",
-      "Warme Kompressen",
       "Entspannende Kopf-, Nacken- & Schultermassage",
       "Pflegende Essenzen",
       "Optional: Haarpflege & Styling"
