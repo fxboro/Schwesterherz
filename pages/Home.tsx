@@ -143,33 +143,44 @@ const Home: React.FC = () => {
       </section>
 
       {/* Intro Section */}
-      <Section bg="white">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <span className="inline-block text-[0.7rem] uppercase tracking-[0.22em] text-brand-600 font-semibold mb-2.5">
-              Willkommen bei Schwesterherz
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-display font-semibold text-brand-900 mb-6 text-balance">
-              Manchmal braucht es mehr als nur Pflege
-            </h2>
-            <p className="text-stone-600 mb-4 leading-relaxed text-pretty">
-              — es braucht einen Ort, an dem Fachkompetenz auf echte Zuwendung trifft. In unserer Praxis verbinden wir medizinisch fundierte Fußpflege mit einem exklusiven Ambiente, das Ruhe und Vertrauen ausstrahlt. Jede Behandlung wird mit größter Sorgfalt, Präzision und Hingabe durchgeführt.
-            </p>
-            <p className="text-stone-600 mb-8 leading-relaxed text-pretty">
-              Unser luxuriöses Shazay Head Spa Ritual schenkt Ihnen zusätzlich tiefe Entspannung und einen Moment, in dem Sie den Alltag vollkommen hinter sich lassen dürfen. Treten Sie ein, atmen Sie durch – und erleben Sie, wie sich Gesundheit und Wohlgefühl auf höchstem Niveau vereinen.
-            </p>
-            <Link to="/ueber-uns" className="text-brand-900 font-semibold hover:text-brand-700 flex items-center gap-2 decoration-brand-300 underline underline-offset-4 hover:decoration-brand-500">
-              Mehr über uns erfahren <ArrowRight size={18} />
-            </Link>
-          </div>
-          <div className="relative mt-8 md:mt-0">
-             <div className="absolute -inset-4 bg-brand-300 rounded-2xl rotate-3 -z-10 hidden md:block"></div>
-             <img 
-               src="/images/Head_massage_01.png" 
-               alt="Entspannende Atmosphäre im Head Spa" 
-               loading="lazy"
-               className="rounded-2xl luxury-card-shadow w-full object-cover" 
-             />
+      <Section bg="white" className="!py-12 md:!py-16 lg:!py-20">
+        <div className="intro-feature">
+          <div className="intro-grid">
+            <div>
+              <span className="inline-block text-[0.7rem] uppercase tracking-[0.22em] text-brand-600 font-semibold mb-2.5">
+                Willkommen bei Schwesterherz
+              </span>
+              <h2 className="intro-heading font-display font-semibold text-brand-900 leading-[1.15] mb-4 text-balance">
+                Manchmal braucht es mehr als nur Pflege
+              </h2>
+              <div className="space-y-3 text-stone-600 text-base leading-relaxed text-pretty max-w-[56ch]">
+                <p>
+                  Bei Schwesterherz Fußpflege &amp; Head Spa Studio treffen fachliche Kompetenz und echte Herzlichkeit aufeinander.
+                </p>
+                <p>
+                  In einem exklusiven Ambiente verwöhnen wir Sie mit professioneller Fußpflege und unserem luxuriösen Shazay Head Spa Ritual.
+                </p>
+                <p>
+                  Erleben Sie Sorgfalt, Schönheit und tiefes Wohlgefühl – und gönnen Sie sich eine Auszeit vom Alltag.
+                </p>
+              </div>
+              <Link
+                to="/ueber-uns"
+                className="mt-6 inline-flex items-center gap-2 min-h-[44px] text-brand-900 font-semibold hover:text-brand-700 decoration-brand-300 underline underline-offset-4 hover:decoration-brand-500 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-700"
+              >
+                Mehr über uns erfahren <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="relative">
+              <div className="absolute -inset-3 bg-brand-300 rounded-2xl rotate-3 -z-10 hidden lg:block"></div>
+              <img
+                src="/images/Head_massage_01.png"
+                alt="Entspannende Atmosphäre im Head Spa"
+                loading="lazy"
+                decoding="async"
+                className="aspect-[4/3] max-h-[340px] sm:max-h-[360px] w-full object-cover object-center rounded-2xl luxury-card-shadow block"
+              />
+            </div>
           </div>
         </div>
       </Section>
